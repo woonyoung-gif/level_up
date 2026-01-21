@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>반짝반짝 우주 타자 여행</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 귀여운 한글 폰트 (구글 웹폰트) -->
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 50% 10%, #2b1055 0%, #7597de 100%);
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+      --neon-blue: #00f3ff;
+      --neon-pink: #ff00de;
+      --neon-yellow: #ffe600;
+      --text-color: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f0c29;
+      background: linear-gradient(to bottom, #24243e, #302b63, #0f0c29);
+      color: var(--text-color);
+      font-family: 'Jua', sans-serif;
+      /* 귀여운 폰트 적용 */
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 별 배경 애니메이션 */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0, 0, 0, 0)),
+        radial-gradient(2px 2px at 90px 40px, #fff, rgba(0, 0, 0, 0));
+      background-size: 200px 200px;
+      animation: twinkle 4s linear infinite;
+    }
+
+    @keyframes twinkle {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-200px);
+      }
+    }
+
+    /* === 상단 헤더 === */
+    header {
+      z-index: 10;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .status-panel {
+      display: flex;
+      gap: 20px;
+      font-size: 20px;
+    }
+
+    .badge {
+      padding: 5px 15px;
+      border-radius: 20px;
+      background: var(--glass-bg);
+      border: var(--glass-border);
+    }
+
+    .heart {
+      color: #ff4757;
+      text-shadow: 0 0 5px #ff4757;
+    }
+
+    /* === 게임 영역 === */
+    #game-area {
+      position: relative;
+      flex: 1;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* 떨어지는 적 (UFO) 스타일 */
+    .enemy {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: top 0.1s linear;
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    }
+
+    .enemy svg {
+      width: 70px;
+      height: 70px;
+      animation: wobble 2s infinite ease-in-out;
+    }
+
+    .enemy-text {
+      margin-top: -10px;
+      padding: 4px 12px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid var(--neon-yellow);
+      border-radius: 15px;
+      color: #fff;
+      font-size: 22px;
+      z-index: 2;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    @keyframes wobble {
+
+      0%,
+      100% {
+        transform: rotate(-5deg);
+      }
+
+      50% {
+        transform: rotate(5deg);
+      }
+    }
+
+    /* 폭발 효과 */
+    .explosion {
+      position: absolute;
+      pointer-events: none;
+      animation: pop 0.4s ease-out forwards;
+      font-size: 40px;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0.5);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    /* === 하단 입력 & 키보드 === */
+    #bottom-ui {
+      z-index: 20;
+      background: rgba(20, 20, 35, 0.9);
+      padding: 15px;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .input-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    #input-box {
+      width: 100%;
+      padding: 10px 20px;
+      font-family: 'Jua', sans-serif;
+      font-size: 26px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 3px solid var(--neon-blue);
+      border-radius: 50px;
+      color: white;
+      outline: none;
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+      transition: all 0.2s;
+    }
+
+    #input-box:focus {
+      background: rgba(0, 243, 255, 0.1);
+      transform: scale(1.02);
+    }
+
+    /* 가상 키보드 */
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 15px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .key {
+      width: 40px;
+      height: 45px;
+      background: #2d3436;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #dfe6e9;
+      border-bottom: 3px solid #181b1c;
+      transition: all 0.1s;
+    }
+
+    .key.active {
+      background: var(--neon-pink);
+      color: #fff;
+      transform: translateY(3px);
+      border-bottom: 0;
+      box-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    .key span.main {
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .key span.sub {
+      font-size: 10px;
+      opacity: 0.6;
+    }
+
+    .key.space {
+      width: 250px;
+    }
+
+    /* === 오버레이 (시작/종료/레벨선택) === */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 12, 41, 0.9);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .overlay h2 {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 20px var(--neon-yellow);
+    }
+
+    .overlay p {
+      font-size: 20px;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+
+    .level-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-family: 'Jua', sans-serif;
+      font-size: 24px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      color: #fff;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .btn-easy {
+      background: linear-gradient(45deg, #00b09b, #96c93d);
+      box-shadow: 0 5px 15px rgba(0, 176, 155, 0.4);
+    }
+
+    .btn-normal {
+      background: linear-gradient(45deg, #ff9966, #ff5e62);
+      box-shadow: 0 5px 15px rgba(255, 94, 98, 0.4);
+    }
+
+    .btn-hard {
+      background: linear-gradient(45deg, #833ab4, #fd1d1d);
+      box-shadow: 0 5px 15px rgba(253, 29, 29, 0.4);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="stars"></div>
+  <a href="playzone.html"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 10px 20px; background: #E52521; color: white; text-decoration: none; border-radius: 25px; font-family: 'Jua', sans-serif; font-size: 1rem; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s;"
+    onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🔙 뒤로 돌아가기</a>
+  <header>
+    <h1>
+      🛸 반짝반짝 우주 타자
+    </h1>
+    <div class="status-panel">
+      <div class="badge">점수: <span id="score">0</span></div>
+      <div class="badge">레벨: <span id="level-display">쉬움</span></div>
+      <div class="badge">생명: <span id="lives" class="heart">❤❤❤❤❤</span></div>
+    </div>
+  </header>
+
+  <!-- 게임 화면 -->
+  <div id="game-area" onclick="focusInput()"></div>
+
+  <!-- 오버레이: 시작 화면 -->
+  <div id="start-screen" class="overlay">
+    <h2>우주 타자 여행</h2>
+    <p>귀여운 외계인 친구들이 낱말을 가지고 내려와요!<br>타자를 쳐서 친구들을 맞이해주세요.</p>
+    <div class="level-container">
+      <button class="btn btn-easy" onclick="startGame('easy')">쉬움 (초급)</button>
+      <button class="btn btn-normal" onclick="startGame('normal')">보통 (중급)</button>
+      <button class="btn btn-hard" onclick="startGame('hard')">어려움 (고급)</button>
+    </div>
+  </div>
+
+  <!-- 오버레이: 게임 오버 -->
+  <div id="gameover-screen" class="overlay hidden">
+    <h2>게임 종료!</h2>
+    <p id="final-score-msg">점수: 0점</p>
+    <button class="btn btn-normal" onclick="resetGame()">다시 하기</button>
+  </div>
+
+  <!-- 하단 컨트롤 -->
+  <div id="bottom-ui">
+    <div class="input-container">
+      <input type="text" id="input-box" placeholder="여기에 낱말을 입력하세요!" autocomplete="off">
+    </div>
+
+    <div class="keyboard">
+      <!-- 자판은 JS로 렌더링하지 않고 HTML에 박아둠 (가독성 위해) -->
+      <div class="row">
+        <div class="key" data-key="q"><span class="main">ㅂ</span><span class="sub">Q</span></div>
+        <div class="key" data-key="w"><span class="main">ㅈ</span><span class="sub">W</span></div>
+        <div class="key" data-key="e"><span class="main">ㄷ</span><span class="sub">E</span></div>
+        <div class="key" data-key="r"><span class="main">ㄱ</span><span class="sub">R</span></div>
+        <div class="key" data-key="t"><span class="main">ㅅ</span><span class="sub">T</span></div>
+        <div class="key" data-key="y"><span class="main">ㅛ</span><span class="sub">Y</span></div>
+        <div class="key" data-key="u"><span class="main">ㅕ</span><span class="sub">U</span></div>
+        <div class="key" data-key="i"><span class="main">ㅑ</span><span class="sub">I</span></div>
+        <div class="key" data-key="o"><span class="main">ㅐ</span><span class="sub">O</span></div>
+        <div class="key" data-key="p"><span class="main">ㅔ</span><span class="sub">P</span></div>
+      </div>
+      <div class="row">
+        <div class="key" data-key="a"><span class="main">ㅁ</span><span class="sub">A</span></div>
+        <div class="key" data-key="s"><span class="main">ㄴ</span><span class="sub">S</span></div>
+        <div class="key" data-key="d"><span class="main">ㅇ</span><span class="sub">D</span></div>
+        <div class="key" data-key="f"><span class="main">ㄹ</span><span class="sub">F</span></div>
+        <div class="key" data-key="g"><span class="main">ㅎ</span><span class="sub">G</span></div>
+        <div class="key" data-key="h"><span class="main">ㅗ</span><span class="sub">H</span></div>
+        <div class="key" data-key="j"><span class="main">ㅓ</span><span class="sub">J</span></div>
+        <div class="key" data-key="k"><span class="main">ㅏ</span><span class="sub">K</span></div>
+        <div class="key" data-key="l"><span class="main">ㅣ</span><span class="sub">L</span></div>
+      </div>
+      <div class="row">
+        <div class="key" data-key="z"><span class="main">ㅋ</span><span class="sub">Z</span></div>
+        <div class="key" data-key="x"><span class="main">ㅌ</span><span class="sub">X</span></div>
+        <div class="key" data-key="c"><span class="main">ㅊ</span><span class="sub">C</span></div>
+        <div class="key" data-key="v"><span class="main">ㅍ</span><span class="sub">V</span></div>
+        <div class="key" data-key="b"><span class="main">ㅠ</span><span class="sub">B</span></div>
+        <div class="key" data-key="n"><span class="main">ㅜ</span><span class="sub">N</span></div>
+        <div class="key" data-key="m"><span class="main">ㅡ</span><span class="sub">M</span></div>
+      </div>
+      <div class="row">
+        <div class="key space" data-key=" "><span class="sub">Space</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === 단어 데이터 (수준별) ===
+    const WORDS = {
+      easy: [ // 받침 없거나 쉬운 단어 위주
+        "가수", "나비", "다리", "라디오", "마차", "바지", "사자", "아기", "자두", "차표",
+        "카메라", "타조", "파리", "하마", "오리", "포도", "우유", "모자", "구두", "누나",
+        "비누", "소", "코", "초", "토마토", "피아노", "어머니", "아버지", "고구마"
+      ],
+      normal: [ // 받침 있는 단어, 일상 명사
+        "학교", "선생님", "친구", "가방", "책상", "연필", "지우개", "운동장", "급식",
+        "동물원", "호랑이", "코끼리", "기린", "원숭이", "비행기", "자동차", "자전거",
+        "컴퓨터", "휴대폰", "텔레비전", "냉장고", "세탁기", "무지개", "눈사람", "크리스마스",
+        "떡볶이", "김밥", "라면", "치킨", "햄버거"
+      ],
+      hard: [ // 긴 단어, 겹받침, 복잡한 단어
+        "대한민국", "소방관", "경찰관", "대통령", "국회의원", "할아버지", "할머니",
+        "일기예보", "교통사고", "횡단보도", "편의점", "아이스크림", "초콜릿", "스파게티",
+        "스테이크", "티라노사우루스", "트리케라톱스", "백과사전", "북극곰", "펭귄",
+        "헬리콥터", "잠수함", "우주비행사", "인공지능", "로봇청소기", "스마트폰", "유튜브",
+        "태권도", "줄넘기", "숨바꼭질"
+      ]
+    };
+
+    // === 귀여운 UFO/외계인 SVG 생성 함수 ===
+    function getAlienSVG(color) {
+      // 색상 랜덤 파스텔톤
+      const colors = ['#ff7675', '#74b9ff', '#55efc4', '#a29bfe', '#ffeaa7', '#fab1a0'];
+      const bodyColor = color || colors[Math.floor(Math.random() * colors.length)];
+
+      return `
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- 빛 -->
+        <ellipse cx="50" cy="85" rx="30" ry="10" fill="rgba(255,255,255,0.2)" />
+        <!-- 다리 -->
+        <path d="M30 70 L20 90 M70 70 L80 90 M50 75 L50 95" stroke="${bodyColor}" stroke-width="5" stroke-linecap="round"/>
+        <!-- 몸통 -->
+        <path d="M20 50 Q20 20 50 20 Q80 20 80 50 Q80 80 50 80 Q20 80 20 50" fill="${bodyColor}" stroke="#fff" stroke-width="2"/>
+        <!-- 눈 -->
+        <circle cx="35" cy="45" r="5" fill="#333" />
+        <circle cx="65" cy="45" r="5" fill="#333" />
+        <circle cx="37" cy="43" r="1.5" fill="#fff" />
+        <circle cx="67" cy="43" r="1.5" fill="#fff" />
+        <!-- 입 -->
+        <path d="M45 55 Q50 60 55 55" stroke="#333" stroke-width="2" fill="none" />
+        <!-- 안테나 -->
+        <path d="M50 20 L50 5" stroke="${bodyColor}" stroke-width="3" />
+        <circle cx="50" cy="5" r="4" fill="${colors[Math.floor(Math.random() * colors.length)]}" />
+      </svg>
+    `;
+    }
+
+    // === 게임 변수 ===
+    let currentLevel = 'easy';
+    let score = 0;
+    let lives = 5;
+    let isPlaying = false;
+    let enemies = []; // { id, el, x, y, speed, text }
+    let lastTime = 0;
+    let spawnTimer = 0;
+    let spawnInterval = 2000;
+    let baseSpeed = 1;
+    let wordList = [];
+
+    // DOM
+    const gameArea = document.getElementById('game-area');
+    const inputBox = document.getElementById('input-box');
+    const scoreEl = document.getElementById('score');
+    const livesEl = document.getElementById('lives');
+    const levelDisplay = document.getElementById('level-display');
+    const startScreen = document.getElementById('start-screen');
+    const gameoverScreen = document.getElementById('gameover-screen');
+    const finalScoreMsg = document.getElementById('final-score-msg');
+
+    // === 게임 로직 ===
+
+    function startGame(level) {
+      currentLevel = level;
+      wordList = [...WORDS[level]]; // 단어 복사
+
+      // 난이도별 설정
+      if (level === 'easy') { baseSpeed = 0.8; spawnInterval = 2500; levelDisplay.innerText = "쉬움"; }
+      else if (level === 'normal') { baseSpeed = 1.2; spawnInterval = 2000; levelDisplay.innerText = "보통"; }
+      else { baseSpeed = 1.8; spawnInterval = 1500; levelDisplay.innerText = "어려움"; }
+
+      // 초기화
+      score = 0;
+      lives = 5;
+      enemies = [];
+      gameArea.innerHTML = '';
+      updateUI();
+
+      startScreen.classList.add('hidden');
+      gameoverScreen.classList.add('hidden');
+      isPlaying = true;
+
+      inputBox.value = '';
+      inputBox.focus();
+
+      lastTime = performance.now();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function resetGame() {
+      gameoverScreen.classList.add('hidden');
+      startScreen.classList.remove('hidden');
+    }
+
+    function createEnemy() {
+      const text = wordList[Math.floor(Math.random() * wordList.length)];
+      const el = document.createElement('div');
+      el.className = 'enemy';
+      el.innerHTML = getAlienSVG() + `<div class="enemy-text">${text}</div>`;
+
+      // 랜덤 위치 (좌우 여백 고려)
+      const maxWidth = gameArea.clientWidth - 100;
+      const x = Math.random() * maxWidth + 20;
+
+      el.style.left = x + 'px';
+      el.style.top = '-100px'; // 화면 위에서 시작
+
+      gameArea.appendChild(el);
+
+      enemies.push({
+        id: Date.now() + Math.random(),
+        el: el,
+        x: x,
+        y: -100,
+        text: text,
+        speed: baseSpeed + (Math.random() * 0.5) // 속도 약간 랜덤
+      });
+    }
+
+    function gameLoop(timestamp) {
+      if (!isPlaying) return;
+
+      const dt = timestamp - lastTime;
+      lastTime = timestamp;
+
+      // 1. 적 생성
+      spawnTimer += dt;
+      if (spawnTimer > spawnInterval) {
+        createEnemy();
+        spawnTimer = 0;
+        // 시간이 갈수록 조금씩 빨라짐 (최대치 제한)
+        spawnInterval = Math.max(800, spawnInterval - 10);
+      }
+
+      // 2. 적 이동 및 충돌 체크
+      const areaHeight = gameArea.clientHeight;
+
+      // 역순으로 순회 (삭제 시 인덱스 오류 방지)
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        let enemy = enemies[i];
+        enemy.y += enemy.speed * (dt / 16);
+        enemy.el.style.top = enemy.y + 'px';
+
+        // 바닥에 닿음
+        if (enemy.y > areaHeight - 80) {
+          // 생명 감소 효과
+          triggerExplosion(enemy.x, areaHeight - 50, "💢");
+          gameArea.style.boxShadow = "inset 0 -20px 50px rgba(255,0,0,0.5)";
+          setTimeout(() => gameArea.style.boxShadow = "", 200);
+
+          removeEnemy(i);
+          lives--;
+          updateUI();
+
+          if (lives <= 0) {
+            gameOver();
+            return;
+          }
+        }
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function removeEnemy(index) {
+      const enemy = enemies[index];
+      if (enemy && enemy.el.parentNode) {
+        enemy.el.remove();
+      }
+      enemies.splice(index, 1);
+    }
+
+    function triggerExplosion(x, y, char = "💥") {
+      const el = document.createElement('div');
+      el.className = 'explosion';
+      el.innerText = char;
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      gameArea.appendChild(el);
+      setTimeout(() => el.remove(), 500);
+    }
+
+    function gameOver() {
+      isPlaying = false;
+      finalScoreMsg.innerText = `최종 점수: ${score}점`;
+      gameoverScreen.classList.remove('hidden');
+    }
+
+    function updateUI() {
+      scoreEl.innerText = score;
+      let heartStr = "";
+      for (let i = 0; i < lives; i++) heartStr += "❤";
+      livesEl.innerText = heartStr;
+    }
+
+    function focusInput() {
+      if (isPlaying) inputBox.focus();
+    }
+
+    // === 입력 처리 ===
+    inputBox.addEventListener('keydown', (e) => {
+      // 키보드 시각 효과
+      const keyEl = document.querySelector(`.key[data-key="${e.key.toLowerCase()}"]`);
+      if (keyEl) {
+        keyEl.classList.add('active');
+        setTimeout(() => keyEl.classList.remove('active'), 150);
+      }
+
+      if (e.key === 'Enter') {
+        checkInput();
+      }
+    });
+
+    function checkInput() {
+      const text = inputBox.value.trim();
+      if (!text) return;
+
+      let matchedIdx = -1;
+      let maxY = -9999; // 가장 아래(위험한) 녀석부터 찾기
+
+      for (let i = 0; i < enemies.length; i++) {
+        if (enemies[i].text === text) {
+          if (enemies[i].y > maxY) {
+            maxY = enemies[i].y;
+            matchedIdx = i;
+          }
+        }
+      }
+
+      if (matchedIdx !== -1) {
+        // 정답
+        const enemy = enemies[matchedIdx];
+        triggerExplosion(enemy.x + 20, enemy.y + 20, "✨");
+        removeEnemy(matchedIdx);
+        score += 10;
+        updateUI();
+        inputBox.value = '';
+      } else {
+        // 오답
+        inputBox.style.borderColor = "#ff4757";
+        setTimeout(() => inputBox.style.borderColor = "var(--neon-blue)", 200);
+        inputBox.value = '';
+      }
+    }
+
+  </script>
+</body>
+
+</html>

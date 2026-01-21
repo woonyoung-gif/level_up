@@ -1,0 +1,130 @@
+@prefix : <http://example.org/levelup#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Ontology
+#################################################################
+
+:LevelUpOntology a owl:Ontology ;
+    rdfs:label "초등 LEVEL UP+ 탐험대 온톨로지"@ko ;
+    rdfs:comment "초등학생과 교사를 위한 교수·학습자료 홈페이지 구조 정의"@ko .
+
+#################################################################
+# Core Classes
+#################################################################
+
+:Homepage a owl:Class ;
+    rdfs:label "홈페이지"@ko .
+
+:Island a owl:Class ;
+    rdfs:label "섬(카테고리)"@ko ;
+    rdfs:comment "닌텐도 게임 콘셉트의 메인 카테고리 섬"@ko .
+
+:SubMenu a owl:Class ;
+    rdfs:label "하위 메뉴"@ko .
+
+:Banner a owl:Class ;
+    rdfs:label "배너"@ko .
+
+:Character a owl:Class ;
+    rdfs:label "캐릭터"@ko .
+
+#################################################################
+# Properties
+#################################################################
+
+:hasIsland a owl:ObjectProperty ;
+    rdfs:domain :Homepage ;
+    rdfs:range :Island ;
+    rdfs:label "섬을 포함함"@ko .
+
+:hasSubMenu a owl:ObjectProperty ;
+    rdfs:domain :Island ;
+    rdfs:range :SubMenu ;
+    rdfs:label "하위 메뉴를 가짐"@ko .
+
+:hasBanner a owl:ObjectProperty ;
+    rdfs:domain :Homepage ;
+    rdfs:range :Banner .
+
+:awakensCharacter a owl:ObjectProperty ;
+    rdfs:domain :Banner ;
+    rdfs:range :Character ;
+    rdfs:label "클릭 시 캐릭터 생성"@ko .
+
+:cursorCharacter a owl:DatatypeProperty ;
+    rdfs:domain :Character ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "마우스 커서로 사용 여부"@ko .
+
+:imageTheme a owl:DatatypeProperty ;
+    rdfs:domain :Island ;
+    rdfs:range xsd:string ;
+    rdfs:label "섬 이미지 콘셉트"@ko .
+
+#################################################################
+# Homepage Instance
+#################################################################
+
+:LevelUpHome a :Homepage ;
+    rdfs:label "초등 LEVEL UP+ 탐험대"@ko ;
+    rdfs:comment "닌텐도 게임 스타일 초기 화면"@ko ;
+    :hasBanner :DinoEggBanner ;
+    :hasIsland :Island1 ,
+               :Island2 ,
+               :Island3 ,
+               :Island4 .
+
+#################################################################
+# Islands
+#################################################################
+
+:Island1 a :Island ;
+    rdfs:label "1. 수업플레이존"@ko ;
+    :imageTheme "놀이동산"@ko ;
+    rdfs:comment "게임처럼 즐기는 수업 활동 공간"@ko .
+
+:Island2 a :Island ;
+    rdfs:label "2. 성취기준 도서검색맵"@ko ;
+    :imageTheme "탐험지도"@ko ;
+    rdfs:comment "성취기준 기반 도서 탐색 섬"@ko .
+
+:Island3 a :Island ;
+    rdfs:label "3. 바로쓰는 독서 학습지도안"@ko ;
+    :imageTheme "교무실"@ko ;
+    rdfs:comment "교사가 바로 활용 가능한 지도안"@ko .
+
+:Island4 a :Island ;
+    rdfs:label "5. 독서력 향상 활동지"@ko ;
+    :imageTheme "도서관"@ko ;
+    rdfs:comment "독서 전략 및 사고력 활동지 모음"@ko .
+
+#################################################################
+# SubMenu Structure
+#################################################################
+
+:BackToStart a :SubMenu ;
+    rdfs:label "시작으로 돌아가기"@ko ;
+    rdfs:comment "모든 하위 메뉴에 공통으로 제공되는 버튼"@ko .
+
+:Island1 :hasSubMenu :BackToStart .
+:Island2 :hasSubMenu :BackToStart .
+:Island3 :hasSubMenu :BackToStart .
+:Island4 :hasSubMenu :BackToStart .
+
+#################################################################
+# Banner & Character
+#################################################################
+
+:DinoEggBanner a :Banner ;
+    rdfs:label "공룡 알 배너"@ko ;
+    rdfs:comment "홈페이지 중앙에 위치한 공룡 알"@ko ;
+    :awakensCharacter :BabyDino .
+
+:BabyDino a :Character ;
+    rdfs:label "아기 공룡"@ko ;
+    rdfs:comment "공룡 알 클릭 시 부화하여 마우스 커서로 동작"@ko ;
+    :cursorCharacter true .

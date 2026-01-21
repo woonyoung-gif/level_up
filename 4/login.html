@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 로그인 - 독서 교육 시스템</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'SUIT', sans-serif;
+            color: #333;
+        }
+
+        .login-card {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h2 {
+            margin: 0 0 30px;
+            color: #0F4C81;
+            /* Deep Blue */
+            font-size: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #0F4C81;
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #0F4C81;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #0a3d6b;
+            transform: translateY(-2px);
+        }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .footer-links a {
+            color: #0F4C81;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .error-msg {
+            color: #ef476f;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            display: none;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #555;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-link">← 메인으로 돌아가기</a>
+
+    <div class="login-card">
+        <span class="logo">🔐</span>
+        <h2>관리자 로그인</h2>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="adminId">관리자 ID</label>
+                <input type="text" id="adminId" placeholder="ID 입력" required>
+            </div>
+            <div class="input-group">
+                <label for="adminPw">비밀번호</label>
+                <input type="password" id="adminPw" placeholder="비밀번호 입력" required>
+            </div>
+
+            <button type="submit" class="login-btn">로그인</button>
+            <div class="error-msg" id="errorMsg">⚠️ 아이디 또는 비밀번호가 일치하지 않습니다.</div>
+
+            <div class="footer-links">
+                <label><input type="checkbox"> 로그인 상태 유지</label>
+                <a href="#">비밀번호 찾기</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('adminId').value;
+            const pw = document.getElementById('adminPw').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            // Hardcoded Credentials
+            if (id === 'admin' && pw === '1234') {
+                sessionStorage.setItem('isAdmin', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                errorMsg.style.display = 'block';
+                // Reset animation
+                errorMsg.style.animation = 'none';
+                errorMsg.offsetHeight; /* trigger reflow */
+                errorMsg.style.animation = 'shake 0.4s';
+            }
+        });
+    </script>
+</body>
+
+</html>

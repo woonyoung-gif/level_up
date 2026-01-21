@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수업 플레이존 - 놀이동산</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --mario-red: #E52521;
+            --park-pink: #FF69B4;
+            --park-orange: #FF8C00;
+            --park-blue: #00BFFF;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #ffeaa7;
+            /* Game Land Concept: striped colorful background */
+            background-image: repeating-linear-gradient(45deg,
+                    #ff9ff3 0px,
+                    #ff9ff3 20px,
+                    #feca57 20px,
+                    #feca57 40px,
+                    #54a0ff 40px,
+                    #54a0ff 60px);
+            background-size: 100% 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            color: #d63031;
+            position: relative;
+            border-bottom: 5px solid #ff7675;
+        }
+
+        .header h1 {
+            font-family: 'Jua', sans-serif;
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 3px 3px 0 #fff;
+            color: #ff6b6b;
+            -webkit-text-stroke: 1px #fff;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            background: #E52521;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-family: 'Jua', sans-serif;
+            font-size: 1rem;
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            z-index: 1000;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 90%;
+            padding: 50px 0;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            border: 5px solid white;
+        }
+
+        .game-card:hover {
+            transform: rotate(2deg) scale(1.05);
+            border-color: var(--park-orange);
+        }
+
+        .game-thumb {
+            height: 150px;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .game-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .game-info h3 {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--park-pink);
+        }
+
+        .game-info p {
+            margin: 10px 0 0;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .amusement-decoration {
+            position: fixed;
+            bottom: -20px;
+            width: 100%;
+            height: 100px;
+            background-image: url('https://www.transparentpng.com/download/grass/park-grass-png-transparent-background--5.png');
+            background-repeat: repeat-x;
+            background-size: contain;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+    <header class="header">
+        <a href="../index.html" class="back-btn" style="
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            background: #E52521;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-family: 'Jua', sans-serif;
+            font-size: 1rem;
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            z-index: 1000;
+        " onmouseover="this.style.transform='translateY(-50%) scale(1.05)'"
+            onmouseout="this.style.transform='translateY(-50%) scale(1)'">🏠 시작으로 돌아가기</a>
+        <h1>📚 수업 플레이존 📚</h1>
+    </header>
+
+    <div class="game-grid">
+        <a href="typing_game.html" class="game-card">
+            <div class="game-thumb">⌨️</div>
+            <div class="game-info">
+                <h3>타자 연습 게임</h3>
+                <p>빠르고 정확하게 타자를 쳐봐요!</p>
+            </div>
+        </a>
+
+        <a href="hanja_memory.html" class="game-card">
+            <div class="game-thumb">🏮</div>
+            <div class="game-info">
+                <h3>한자 메모리 게임</h3>
+                <p>같은 한자를 찾아 카드를 뒤집어요.</p>
+            </div>
+        </a>
+
+        <a href="Egg_game.html" class="game-card">
+            <div class="game-thumb">🐣</div>
+            <div class="game-info">
+                <h3>독서펫 키우기</h3>
+                <p>맛있는 글자 알을 먹으며 펫을 키워봐요!</p>
+            </div>
+        </a>
+
+        <a href="school_habit_game.html" class="game-card">
+            <div class="game-thumb">🏫</div>
+            <div class="game-info">
+                <h3>학교 습관 게임</h3>
+                <p>올바른 학교 생활 습관을 배워요.</p>
+            </div>
+        </a>
+
+        <a href="game.html" class="game-card">
+            <div class="game-thumb">🎮</div>
+            <div class="game-info">
+                <h3>책 쌓기 테트리스</h3>
+                <p>책을 쌓아 라인을 완성해보세요!</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="amusement-decoration"></div>
+
+</body>
+
+</html>

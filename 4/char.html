@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인물 분석 - 독서 전략 워크시트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>👤 인물 분석 스파이더맵</h1>
+    </header>
+
+    <div class="container">
+        <div class="page-header-actions">
+            <a href="index.html" class="back-link">← 메뉴로 돌아가기</a>
+            <button class="print-btn" onclick="window.print()">📥 결과 출력 / PDF 저장</button>
+        </div>
+
+        <section class="workspace">
+            <h2 style="display:none;">인물 분석</h2>
+            <p style="margin-bottom: 2rem; color: #666;">등장인물에 대해 다각도로 분석해보세요.</p>
+
+            <div class="split-grid" style="gap: 20px;">
+                <div class="split-column">
+                    <h3>성격 / 외모 특징</h3>
+                    <textarea style="height: 200px;" placeholder="인물의 성격이나 겉모습은 어떤가요?"></textarea>
+                </div>
+                <div class="split-column">
+                    <h3>가치관 / 주요 생각</h3>
+                    <textarea style="height: 200px;" placeholder="인물이 중요하게 생각하는 것은 무엇인가요?"></textarea>
+                </div>
+                <div class="split-column">
+                    <h3>다른 인물과의 관계</h3>
+                    <textarea style="height: 200px;" placeholder="주변 인물들과 어떤 사이인가요? 갈등이 있나요?"></textarea>
+                </div>
+                <div class="split-column">
+                    <h3>나의 평가 (장점/단점)</h3>
+                    <textarea style="height: 200px;" placeholder="내가 본 이 인물의 배울 점이나 아쉬운 점은?"></textarea>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 독서 교육 지원 시스템</p>
+    </footer>
+
+    <script src="submission.js"></script>
+</body>
+
+</html>

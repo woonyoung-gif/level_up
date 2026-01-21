@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초등 LEVEL UP+ 탐험대</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --red: #E52521;
+            --blue: #049CD8;
+            --yellow: #FBD000;
+            --green: #43B047;
+            --glow-color: #fff;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow: hidden;
+            background: #5c94fc;
+            /* Fallback */
+        }
+
+        .world-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('background_new.jpg') center / cover no-repeat;
+            transition: transform 1s ease-in-out, filter 1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Header */
+        .header {
+            position: absolute;
+            top: 40px;
+            z-index: 100;
+            animation: float-header 3s ease-in-out infinite;
+        }
+
+        .header h1 {
+            font-family: 'Jua', sans-serif;
+            font-size: 4.5rem;
+            color: var(--yellow);
+            -webkit-text-stroke: 2px #b85c00;
+            text-shadow: 4px 4px 0 #000,
+                0 0 20px rgba(255, 215, 0, 0.8),
+                0 0 40px rgba(255, 100, 0, 0.6);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        @keyframes float-header {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Island Text Links */
+        .island-link {
+            position: absolute;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            transition: transform 0.3s ease, text-shadow 0.3s ease;
+            /* Ensure not blocking pointer events poorly, but text is clickable */
+        }
+
+        .island-link:hover {
+            transform: scale(1.1);
+            z-index: 20;
+        }
+
+        /* STRICT: No Backgrounds for Text */
+        .island-text {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.8rem;
+            color: #ffffff;
+            /* Strong Shadow for readability without background box */
+            text-shadow:
+                2px 2px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                0 0 10px rgba(0, 0, 0, 0.8);
+            line-height: 1.2;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .huge-num {
+            display: block;
+            font-size: 4rem;
+            /* Much Larger Number */
+            color: var(--yellow);
+            margin-bottom: -10px;
+            /* Tighten gap */
+            text-shadow:
+                3px 3px 0 #000,
+                0 0 20px #FFD700;
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 10px #FFD700, 3px 3px 0 #000;
+            }
+
+            to {
+                text-shadow: 0 0 30px #ffea00, 3px 3px 0 #000;
+            }
+        }
+
+        /* 
+           POSITIONS 
+           Targeting surfaces directly based on standard isometric layout
+        */
+
+        /* 1. Playzone - Bottom Center (Grass Blocks Surface) */
+        .pos-playzone {
+            bottom: 28%;
+            /* Raised up to sit ON surface */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+        }
+
+        /* 2. Map - Top Center (Globe/Platform Surface) */
+        .pos-map {
+            top: 22%;
+            /* Lowered slightly to sit ON surface */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+        }
+
+        /* 3. Lesson Plan - Right (Chalkboard Surface) */
+        .pos-office {
+            top: 48%;
+            right: 12%;
+            /* Moved inward to sit ON board */
+            width: 280px;
+        }
+
+        /* 4. Worksheet - Left (Book Surface) */
+        .pos-library {
+            top: 48%;
+            left: 12%;
+            /* Moved inward to sit ON book */
+            width: 280px;
+        }
+
+        /* Central Egg - PURE PNG STYLE */
+        .egg-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Precisely centered */
+            width: 140px;
+            /* Slightly larger */
+            cursor: pointer;
+            z-index: 50;
+            transition: all 0.3s;
+
+            /* STRICT: No box styles */
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        .egg-center img {
+            width: 100%;
+            display: block;
+            /* Nu-kki effect: simple drop shadow on the image contours only */
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+            border: none !important;
+            outline: none !important;
+        }
+
+        .egg-center:hover {
+            transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+        }
+
+        .egg-center.shaking {
+            animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both infinite;
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translate(-50%, -50%) rotate(-1deg);
+            }
+
+            20%,
+            80% {
+                transform: translate(-50%, -50%) rotate(2deg);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate(-50%, -50%) rotate(-4deg);
+            }
+
+            40%,
+            60% {
+                transform: translate(-50%, -50%) rotate(4deg);
+            }
+        }
+
+        /* Custom Cursor */
+        body.pet-cursor {
+            cursor: none !important;
+        }
+
+        body.pet-cursor * {
+            cursor: none !important;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            font-size: 50px;
+            pointer-events: none;
+            z-index: 9999;
+            display: none;
+            user-select: none;
+        }
+
+        /* Fade Overlay */
+        #fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+
+<body id="main-body">
+    <!-- Back to Start Button (Added) -->
+    <a href="../home/index.html" style="
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 9999;
+        padding: 10px 20px;
+        background: #E52521;
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        box-shadow: 0 4px 0 #8B0000;
+        font-family: 'Jua', sans-serif;
+        border: 2px solid white;
+        transition: transform 0.2s;
+    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        🏠 시작으로 돌아가기
+    </a>
+
+    <div id="fade-overlay"></div>
+
+    <div class="world-container" id="world">
+        <header class="header">
+            <h1>초등 LEVEL UP+ 탐험대</h1>
+        </header>
+
+        <!-- Islands (Strict Text Only) -->
+
+        <!-- 1. Playzone -> Bottom Grass -->
+        <a href="playzone.html" class="island-link pos-playzone" onclick="warpEffect(event, 'playzone.html')">
+            <div class="island-text">
+                <span class="huge-num">1</span>
+                수업 플레이존
+            </div>
+        </a>
+
+        <!-- 2. Achievement Standards Map -> Top Globe -->
+        <a href="../2/index2.html" class="island-link pos-map" onclick="warpEffect(event, '../2/index2.html')">
+            <div class="island-text">
+                <span class="huge-num">2</span>
+                성취기준<br>도서검색맵
+            </div>
+        </a>
+
+        <!-- 3. Lesson Plan -> Right Chalkboard -->
+        <a href="../3/index.html" class="island-link pos-office" onclick="warpEffect(event, '../3/index.html')">
+            <div class="island-text">
+                <span class="huge-num">3</span>
+                바로쓰는<br>독서학습지도안
+            </div>
+        </a>
+
+        <!-- 4. Worksheet -> Left Book -->
+        <a href="../4/index.html" class="island-link pos-library" onclick="warpEffect(event, '../4/index.html')">
+            <div class="island-text">
+                <span class="huge-num">4</span>
+                독서력 향상<br>워크시트
+            </div>
+        </a>
+
+        <!-- Dinosaur Egg (Pure PNG) -->
+        <div class="egg-center" id="magic-egg" onclick="hatchDino()">
+            <img src="reading_pet_egg.png" alt="공룡 알">
+        </div>
+
+        <div id="custom-cursor">🦖</div>
+    </div>
+
+    <script>
+        const egg = document.getElementById('magic-egg');
+        const cursor = document.getElementById('custom-cursor');
+        const body = document.getElementById('main-body');
+        const overlay = document.getElementById('fade-overlay');
+        let isHatched = false;
+
+        function hatchDino() {
+            if (isHatched) return;
+            egg.classList.add('shaking');
+
+            setTimeout(() => {
+                egg.style.transition = 'all 0.5s ease-out';
+                egg.style.transform = 'translate(-50%, -50%) scale(0) rotate(720deg)';
+                egg.style.opacity = '0';
+
+                setTimeout(() => {
+                    isHatched = true;
+                    body.classList.add('pet-cursor');
+                    cursor.style.display = 'block';
+                    egg.style.display = 'none';
+                }, 500);
+            }, 1000);
+        }
+
+        document.addEventListener('mousemove', e => {
+            if (isHatched) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        function warpEffect(e, url) {
+            // Effect removed as requested
+            window.location.href = url;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>독서 활동지 작성 - 스마트 독서 라이브러리</title>
+    <!-- Friendly Font -->
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'SUIT', sans-serif;
+            background-color: #fffaf0;
+            /* Slightly warmer specifically for writing */
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h1>📚 스마트 독서 라이브러리</h1>
+        </a>
+    </header>
+
+    <div class="container">
+
+        <div class="page-header-actions">
+            <a href="index.html" class="back-link">← 메인으로</a>
+        </div>
+
+        <div class="workspace">
+            <div class="page-header">
+                <h2>📝 독서 활동지 작성</h2>
+                <p>오늘 읽은 책의 내용을 기록해봅시다.<br>작성완료 후 '제출하기' 버튼을 꼭 눌러주세요!</p>
+            </div>
+
+            <form id="worksheetForm">
+                <div class="split-grid">
+                    <div class="form-group">
+                        <label for="studentName">이름</label>
+                        <input type="text" id="studentName" placeholder="예: 김민수" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentGrade">학년 / 반</label>
+                        <input type="text" id="studentGrade" placeholder="예: 1학년 3반" required>
+                    </div>
+                </div>
+
+                <div class="split-grid">
+                    <div class="form-group">
+                        <label for="bookTitle">도서 제목</label>
+                        <input type="text" id="bookTitle" placeholder="읽은 책 제목을 입력하세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="readDate">독서 날짜</label>
+                        <input type="date" id="readDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="activityContent">활동 내용 (느낀 점, 줄거리 요약 등)</label>
+                    <textarea id="activityContent" rows="12" placeholder="자유롭게 작성해주세요..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="margin-top: 20px;">📤 활동지 제출하기</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 독서 교육 지원 시스템. All rights reserved.</p>
+    </footer>
+
+    <script src="worksheet.js"></script>
+</body>
+
+</html>

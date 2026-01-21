@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표지 & 제목 추리 - 독서 탐정 워크시트</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Detective Theme Overrides */
+        body.detective-theme {
+            background-color: #393965;
+            /* Dark Navy */
+            color: #e0e0e0;
+        }
+
+        .detective-theme header {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+            border-bottom: 2px solid #f0a500;
+            /* Amber Accent */
+        }
+
+        .detective-theme header h1 {
+            color: #f0a500;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .detective-theme header p {
+            color: #bfbfbf;
+        }
+
+        .detective-theme .back-link {
+            background: #16213e;
+            color: #f0a500;
+            border-color: #f0a500;
+        }
+
+        .detective-theme .workspace {
+            background: #252a40;
+            /* Dark Card */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #3a405a;
+            color: #e0e0e0;
+        }
+
+        .detective-theme h2,
+        .detective-theme h3,
+        .detective-theme h4 {
+            color: #f0a500;
+            /* Amber Title */
+        }
+
+        .detective-theme textarea,
+        .detective-theme input[type="text"] {
+            background: #1a1a2e;
+            border: 1px solid #4a5568;
+            color: #fff;
+        }
+
+        .detective-theme textarea:focus,
+        .detective-theme input:focus {
+            border-color: #f0a500;
+        }
+
+        /* Layout Specifics */
+        .case-file {
+            border: 2px dashed #4a5568;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .case-label {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #252a40;
+            padding: 0 10px;
+            color: #f0a500;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .cover-upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cover-preview {
+            width: 200px;
+            height: 280px;
+            border: 2px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            color: #666;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .cover-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .clue-box {
+            background: #16213e;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #f0a500;
+        }
+
+        .clue-box h4 {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #bbb;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-btn {
+            border: 1px solid #f0a500;
+            color: #f0a500;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="detective-theme">
+
+    <header>
+        <h1>🕵️‍♀️ 표지 & 제목 추리 탐정</h1>
+        <p>책의 첫인상만으로 사건의 전말을 추리해보세요.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Header Actions will receive specific button styling via Global CSS, overrides here -->
+        <div class="page-header-actions">
+            <a href="index.html" class="back-link">← 사건 종료 (메뉴)</a>
+            <button class="print-btn" onclick="window.print()" style="background:#f0a500; color:#1a1a2e;">🖨️ 수사 기록
+                인쇄</button>
+        </div>
+
+        <section class="workspace">
+            <h2 style="display:none;">추리 보고서</h2>
+
+            <!-- Book Info & Cover -->
+            <div class="case-file">
+                <div class="case-label">📁 사건 파일 (책 정보)</div>
+                <div class="cover-upload-section">
+                    <div class="cover-preview" id="previewArea">
+                        <span>표지 이미지 없음</span>
+                    </div>
+
+                    <!-- File Upload & URL Input Row -->
+                    <div
+                        style="width: 100%; max-width: 600px; display: flex; gap: 10px; justify-content: center; align-items: stretch; flex-wrap: wrap;">
+
+                        <!-- File Input Button -->
+                        <div class="file-input-wrapper" style="flex: 0 0 auto;">
+                            <button class="file-input-btn" style="height: 100%; display: flex; align-items: center;">📸
+                                이미지 업로드</button>
+                            <input type="file" id="coverInput" accept="image/*" style="cursor:pointer;">
+                        </div>
+
+                        <!-- URL Input Group -->
+                        <div style="flex: 1; min-width: 250px; display: flex; gap: 5px;">
+                            <input type="text" id="coverUrlInput" placeholder="또는 이미지 주소(URL) 붙여넣기"
+                                style="flex:1; text-align:left; font-size: 0.9rem; padding: 10px; border-radius: 5px;">
+                            <button id="loadUrlBtn"
+                                style="white-space:nowrap; padding: 0 15px; background:#f0a500; border:none; border-radius: 5px; color:#1a1a2e; font-weight:bold; cursor:pointer;">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Clues -->
+            <div class="case-file">
+                <div class="case-label">👁️ 표지 탐정 (시각적 단서)</div>
+                <div class="evidence-grid">
+                    <div class="clue-box">
+                        <h4>🔍 가장 눈에 띄는 것은? (색깔, 물건, 사람)</h4>
+                        <textarea placeholder="예: 붉은색 배경과 깨진 거울이 보인다..."></textarea>
+                    </div>
+                    <div class="clue-box">
+                        <h4>🎨 색깔이나 그림이 의미하는 것은?</h4>
+                        <textarea placeholder="예: 붉은색은 위험이나 경고를 의미하는 것 같다..."></textarea>
+                    </div>
+                    <div class="clue-box">
+                        <h4>👤 주인공 프로파일링 (성격/직업)</h4>
+                        <textarea placeholder="예: 표정으로 보아 겁이 많지만 호기심이 강한 학생 같다..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Title Analysis -->
+            <div class="case-file">
+                <div class="case-label">🧩 제목 쪼개기 (언어적 단서)</div>
+                <p style="margin-bottom:15px; text-align:center; color:#888;">제목에서 핵심 단어 3개를 뽑고 연상되는 것을 적으세요.</p>
+                <div class="evidence-grid">
+                    <div class="clue-box">
+                        <input type="text" placeholder="핵심 단어 1"
+                            style="margin-bottom:10px; font-weight:bold; color:#f0a500;">
+                        <input type="text" placeholder="↳ 연상되는 것 (단서)">
+                    </div>
+                    <div class="clue-box">
+                        <input type="text" placeholder="핵심 단어 2"
+                            style="margin-bottom:10px; font-weight:bold; color:#f0a500;">
+                        <input type="text" placeholder="↳ 연상되는 것 (단서)">
+                    </div>
+                    <div class="clue-box">
+                        <input type="text" placeholder="핵심 단어 3"
+                            style="margin-bottom:10px; font-weight:bold; color:#f0a500;">
+                        <input type="text" placeholder="↳ 연상되는 것 (단서)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Deduction -->
+            <div class="case-file" style="border-style: solid; border-color: #f0a500;">
+                <div class="case-label" style="color: #fff; background: #f0a500;">✨ 최종 추리 (결론 도출)</div>
+                <div style="margin-top: 10px;">
+                    <p style="margin-bottom: 10px; color:#ddd;">표지와 제목의 단서를 종합했을 때, 이 책은 어떤 내용일 것 같나요?</p>
+                    <textarea style="height: 150px; font-size: 1.1rem; border-color: #f0a500;"
+                        placeholder="내 추리: 이 책은 ~~~"></textarea>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 독서 탐정 사무소</p>
+    </footer>
+
+    <script>
+        // Preview Logic
+        const previewArea = document.getElementById('previewArea');
+
+        // 1. File Upload
+        document.getElementById('coverInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    previewArea.innerHTML = `<img src="${evt.target.result}" alt="Cover Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 2. URL Input
+        document.getElementById('loadUrlBtn').addEventListener('click', function () {
+            const url = document.getElementById('coverUrlInput').value.trim();
+            if (url) {
+                previewArea.innerHTML = `<img src="${url}" alt="Cover Preview" onerror="alert('이미지를 불러올 수 없습니다. 주소를 확인해주세요.'); this.parentNode.innerHTML='<span>이미지 로드 실패</span>'">`;
+            }
+        });
+    </script>
+    <a href="../1/index.html" class="back-home-btn">🏠 시작으로 돌아가기</a>
+    <script src="submission.js"></script>
+</body>
+
+</html>

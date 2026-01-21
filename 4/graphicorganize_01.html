@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초등학생용 독서 전략 통합 워크시트</title>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --bg: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* 메뉴 상단바 */
+        .nav-menu {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            z-index: 1000;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .nav-menu button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #eee;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-menu button.active {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-menu button:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-menu button.print-btn {
+            background: var(--success);
+            color: white;
+            margin-left: 10px;
+        }
+
+        .workspace {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            min-height: 700px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .tool-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tool-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            resize: none;
+            font-size: 1rem;
+            box-sizing: border-box;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            background: #fafafa;
+        }
+
+        /* 1. KWL 레이아웃 */
+        .kwl-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .kwl-grid>div {
+            border: 3px solid #f1c40f;
+            border-radius: 12px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(241, 196, 15, 0.2);
+        }
+
+        .kwl-grid h3 {
+            border-bottom: 2px solid #f1c40f;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #f1c40f;
+        }
+
+        .kwl-grid textarea {
+            border: none !important;
+            padding: 0 !important;
+        }
+
+        /* 2. 마인드맵 레이아웃 */
+        .mindmap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .center-box {
+            border: 2px dashed var(--primary);
+            background: #f0f7ff;
+            height: 120px;
+        }
+
+        /* 3. 흐름도 레이아웃 */
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .arrow {
+            font-size: 20px;
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        /* 4. 벤다이어그램 레이아웃 */
+        .venn-wrapper {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            height: 380px;
+            margin-top: 20px;
+        }
+
+        .venn-circle {
+            width: 320px;
+            height: 320px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            padding: 50px;
+            position: absolute;
+            box-sizing: border-box;
+        }
+
+        .circle-a {
+            left: 150px;
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .circle-b {
+            right: 150px;
+            background: rgba(243, 156, 18, 0.1);
+            border-color: #f39c12;
+        }
+
+        /* 5. 원인/결과 & 6. 인물분석 */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* 인쇄 설정 */
+        @media print {
+            .nav-menu {
+                display: none;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .workspace {
+                box-shadow: none;
+                width: 100%;
+                padding: 0;
+            }
+
+            .tool-content {
+                display: block !important;
+                page-break-after: always;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 50px;
+            }
+
+            textarea {
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-menu">
+        <button onclick="openTab('kwl')" id="btn-kwl" class="active">KWL 차트</button>
+        <button onclick="openTab('mindmap')" id="btn-mindmap">마인드맵</button>
+        <button onclick="openTab('flow')" id="btn-flow">사건 흐름도</button>
+        <button onclick="openTab('venn')" id="btn-venn">비교와 대조</button>
+        <button onclick="openTab('cause')" id="btn-cause">원인과 결과</button>
+        <button onclick="openTab('char')" id="btn-char">인물 분석</button>
+        <button class="print-btn" onclick="window.print()">📥 결과 출력 / PDF 저장</button>
+    </div>
+
+    <div class="workspace">
+        <div id="kwl" class="tool-content active">
+            <h2>📊 KWL 차트: 읽기 전/후 정리</h2>
+            <div class="kwl-grid">
+                <div>
+                    <h3>Know (이미 아는 것)</h3>
+                    <textarea style="height: 350px;" placeholder="이 주제에 대해 무엇을 알고 있나요?"></textarea>
+                </div>
+                <div>
+                    <h3>Want (알고 싶은 것)</h3>
+                    <textarea style="height: 350px;" placeholder="무엇이 궁금한가요?"></textarea>
+                </div>
+                <div>
+                    <h3>Learned (새로 배운 것)</h3>
+                    <textarea style="height: 350px;" placeholder="책을 통해 무엇을 알게 되었나요?"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="mindmap" class="tool-content">
+            <h2>🧠 마인드맵: 생각 확장하기</h2>
+            <div class="mindmap-grid">
+                <textarea placeholder="핵심 키워드 1" style="height: 100px;"></textarea>
+                <textarea class="center-box" placeholder="중심 주제 (책 제목)"></textarea>
+                <textarea placeholder="핵심 키워드 2" style="height: 100px;"></textarea>
+                <textarea placeholder="핵심 키워드 3" style="height: 100px;"></textarea>
+                <div style="text-align: center; color: #999;">연관된 생각을 뻗어나가세요</div>
+                <textarea placeholder="핵심 키워드 4" style="height: 100px;"></textarea>
+            </div>
+        </div>
+
+        <div id="flow" class="tool-content">
+            <h2>🛤️ 사건 흐름도: 스토리 전개</h2>
+            <div class="flow-container">
+                <textarea placeholder="발단: 배경과 인물 소개" style="height: 80px;"></textarea>
+                <div class="arrow">▼</div>
+                <textarea placeholder="전개: 사건의 시작" style="height: 80px;"></textarea>
+                <div class="arrow">▼</div>
+                <textarea placeholder="절정: 갈등의 최고조" style="height: 80px;"></textarea>
+                <div class="arrow">▼</div>
+                <textarea placeholder="결말: 해결 및 교훈" style="height: 80px;"></textarea>
+            </div>
+        </div>
+
+        <div id="venn" class="tool-content">
+            <h2>⚖️ 비교와 대조 (벤다이어그램)</h2>
+            <div class="venn-wrapper">
+                <div class="venn-circle circle-a"><textarea placeholder="대상 A의 특징"
+                        style="height: 200px; background: transparent; border: none;"></textarea></div>
+                <div class="venn-circle circle-b"><textarea placeholder="대상 B의 특징"
+                        style="height: 200px; background: transparent; border: none;"></textarea></div>
+            </div>
+            <p style="text-align: center; color: #666; margin-top: -30px;">※ 공통점은 겹치는 부분에, 차이점은 바깥쪽에 적으세요.</p>
+        </div>
+
+        <div id="cause" class="tool-content">
+            <h2>🔍 원인과 결과 분석</h2>
+            <div class="split-grid">
+                <div>
+                    <h3>원인 (Why?)</h3>
+                    <textarea style="height: 300px;" placeholder="어떤 사건이나 행동의 원인을 적어보세요."></textarea>
+                </div>
+                <div>
+                    <h3>결과 (So What?)</h3>
+                    <textarea style="height: 300px;" placeholder="그로 인해 어떤 변화가 생겼나요?"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="char" class="tool-content">
+            <h2>👤 인물 분석 스파이더맵</h2>
+            <div class="split-grid">
+                <textarea style="height: 150px;" placeholder="인물의 성격/특징"></textarea>
+                <textarea style="height: 150px;" placeholder="인물의 가치관/생각"></textarea>
+                <textarea style="height: 150px;" placeholder="다른 인물과의 관계"></textarea>
+                <textarea style="height: 150px;" placeholder="내가 본 이 인물의 장단점"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(tabId) {
+            // 모든 섹션 비활성화
+            document.querySelectorAll('.tool-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // 모든 버튼 비활성화
+            document.querySelectorAll('.nav-menu button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 선택한 섹션 및 버튼 활성화
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>독서력 향상 활동지</title>
+    <!-- SUIT Font -->
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modal Styles located in index for encapsulation or style.css */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 30px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .close-modal {
+            margin-top: 15px;
+            background: none;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+
+    <header
+        style="background: url('https://img.freepik.com/free-vector/ancient-library-interior-with-old-books-scrolls-candles-wooden-furniture_107791-3259.jpg') center/cover; position: relative;">
+        <!-- Dark overlay to make text pop -->
+        <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.3);"></div>
+
+        <div class="header-top-bar" style="position: relative; z-index: 2; background: transparent;">
+            <a href="../index.html" style="
+                background: #E52521;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 25px;
+                font-family: 'Jua', sans-serif;
+                font-size: 1rem;
+                border: 2px solid white;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+                margin-right: 15px;
+                transition: transform 0.2s;
+                display: inline-block;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🏠 시작으로
+                돌아가기</a>
+            <span class="brand-label" style="text-shadow: 1px 1px 2px black;">독서 전략 활동지</span>
+        </div>
+        <div class="header-main"
+            style="background:transparent; text-align: center; padding-top: 5rem; position: relative; z-index: 2;">
+            <h1 style="
+                font-family: 'Jua', sans-serif;
+                font-size: 3.5rem;
+                color: #FBD000; /* Gold */
+                -webkit-text-stroke: 2px #b85c00;
+                text-shadow: 
+                    4px 4px 0 #000,
+                    0 0 20px rgba(255, 215, 0, 0.6);
+                margin-bottom: 0.5rem;
+                letter-spacing: 2px;
+                display: inline-block;
+            ">
+                한 칸씩 채우다보면 어느새 LEVEL UP
+            </h1>
+            <!-- Subtitle removed as requested -->
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="menu-grid">
+
+            <!-- Row 1 -->
+            <!-- KWL -->
+            <a href="kwl.html" class="menu-item" style="border-color: #f1c40f;">
+                <span class="icon">🤔</span>
+                <h3>KWL</h3>
+                <p>배경지식 활성화 및 읽기 목표 설정</p>
+            </a>
+
+            <!-- Prediction -->
+            <a href="predict.html" class="menu-item" style="border-color: #06d6a0;">
+                <span class="icon">🕵️‍♀️</span>
+                <h3>표지 & 제목 추리</h3>
+                <p>표지와 제목을 보고 내용을 추리해봐요.</p>
+            </a>
+
+            <!-- SQ3R -->
+            <a href="sq3r.html" class="menu-item" style="border-color: #4cc9f0;">
+                <span class="icon">📖</span>
+                <h3>SQ3R 독서법</h3>
+                <p>체계적인 5단계 독서 전략</p>
+            </a>
+
+            <!-- Row 2 -->
+            <!-- Character Analysis -->
+            <a href="char.html" class="menu-item" style="border-color: #7209b7;">
+                <span class="icon">👤</span>
+                <h3>인물 분석</h3>
+                <p>주인공의 성격 파헤치기</p>
+            </a>
+
+            <!-- Event Flow -->
+            <a href="flow.html" class="menu-item" style="border-color: #4361ee;">
+                <span class="icon">🛤️</span>
+                <h3>사건 흐름도</h3>
+                <p>이야기의 순서를 정리해요.</p>
+            </a>
+
+            <!-- Cause & Effect -->
+            <a href="cause.html" class="menu-item" style="border-color: #3a0ca3;">
+                <span class="icon">🔍</span>
+                <h3>원인과 결과</h3>
+                <p>왜 그런 일이 일어났을까요?</p>
+            </a>
+
+            <!-- Row 3 -->
+            <!-- Mindmap -->
+            <a href="mindmap.html" class="menu-item" style="border-color: #2a9d8f;">
+                <span class="icon">❓</span>
+                <h3>마인드맵</h3>
+                <p>생각의 나무를 키워보세요.</p>
+            </a>
+
+            <!-- Venn -->
+            <a href="venn.html" class="menu-item" style="border-color: #f72585;">
+                <span class="icon">⚖️</span>
+                <h3>비교와 대조</h3>
+                <p>공통점과 차이점 찾기</p>
+            </a>
+
+            <!-- Concept Tree -->
+            <a href="tree.html" class="menu-item" style="border-color: #ef476f;">
+                <span class="icon">🏠</span>
+                <h3>개념 구조도</h3>
+                <p>글의 기둥과 지붕을 세워보세요.</p>
+            </a>
+
+        </div>
+
+        <!-- Restoration of Admin Button & Modal Trigger -->
+        <div style="margin-top: 50px; text-align: right;">
+            <button onclick="openAdminModal()"
+                style="background:none; border:none; color:#aaa; cursor:pointer; font-size:0.9rem;">🔐 관리자 페이지</button>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 독서 교육 지원 시스템 | Digital Library</p>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color:#333;">관리자 로그인</h3>
+            <div style="text-align:left; margin-bottom:10px; font-size:0.85rem; color:#666;">
+                * 초기 아이디/비번이 자동 입력됩니다.
+            </div>
+            <input type="text" id="adminId" class="admin-input" placeholder="아이디" value="admn">
+            <input type="password" id="adminPw" class="admin-input" placeholder="비밀번호" value="1234">
+            <button onclick="checkAdminLogin()" class="btn-primary" style="width:100%; margin-top:10px;">로그인</button>
+            <button onclick="closeAdminModal()" class="close-modal">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('adminModal');
+
+        function openAdminModal() {
+            modal.style.display = 'flex';
+        }
+
+        function closeAdminModal() {
+            modal.style.display = 'none';
+        }
+
+        function checkAdminLogin() {
+            const id = document.getElementById('adminId').value;
+            const pw = document.getElementById('adminPw').value;
+
+            // Updated Credentials: admn / 1234
+            if (id === 'admn' && pw === '1234') {
+                sessionStorage.setItem('isAdmin', 'true');
+                window.location.href = 'admin.html';
+            } else {
+                alert('아이디(admn) 또는 비밀번호(1234)가 일치하지 않습니다.');
+            }
+        }
+
+        // Close on outside click
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeAdminModal();
+            }
+        }
+    </script>
+</body>
+
+</html>

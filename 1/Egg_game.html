@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>독서 펫 키우기 게임</title>
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #game-container {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+            border: 4px solid #a5d6a7;
+        }
+
+        h1 {
+            color: #2e7d32;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .status-bar {
+            background: #eee;
+            border-radius: 10px;
+            height: 20px;
+            width: 100%;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        #progress {
+            background: #4caf50;
+            height: 100%;
+            width: 0%;
+            transition: 0.5s;
+        }
+
+        #pet-display {
+            font-size: 80px;
+            margin: 30px 0;
+            transition: transform 0.3s;
+        }
+
+        .shake {
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(5deg);
+            }
+
+            50% {
+                transform: rotate(0deg);
+            }
+
+            75% {
+                transform: rotate(-5deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .info {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .info b {
+            color: #2e7d32;
+            font-size: 1.3rem;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 85%;
+            padding: 12px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #388e3c;
+        }
+
+        #log {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 10px;
+            height: 60px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="playzone.html"
+        style="position: fixed; top: 20px; left: 20px; z-index: 9999; padding: 10px 20px; background: #E52521; color: white; text-decoration: none; border-radius: 25px; font-family: 'Jua', sans-serif; font-size: 1rem; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s;"
+        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🔙 뒤로 돌아가기</a>
+    <div id="game-container">
+
+        <h1>🦖 독서 펫 키우기</h1>
+        <p>책을 읽고 일기를 써서 알을 부화시켜요!</p>
+        <p style="color: #ff9800; font-weight: bold; font-size: 0.95rem; margin-top: -10px;">✨ 100점을 완성하면 귀여운 공룡을 만날 수
+            있습니다! ✨</p>
+
+        <div id="pet-display">🥚</div>
+
+        <div class="info">내 독서 포인트: <b id="point-display">0</b>점</div>
+
+        <div class="status-bar">
+            <div id="progress"></div>
+        </div>
+        <p id="status-text">부화까지 0% 남았어요!</p>
+
+        <div id="input-area">
+            <input type="text" id="book-title" placeholder="읽은 책 제목">
+            <input type="text" id="book-review" placeholder="짧은 한 줄 평">
+            <button onclick="readBook()">독서 기록 완료! (+20점)</button>
+        </div>
+
+        <div id="log">
+            나의 독서 일지가 나타납니다.
+        </div>
+    </div>
+
+    <script>
+        let points = 0;
+        const goal = 100; // 100점 달성 시 부화
+        let isHatched = false;
+
+        function readBook() {
+            const titleInput = document.getElementById('book-title');
+            const reviewInput = document.getElementById('book-review');
+            const pointDisplay = document.getElementById('point-display');
+            const progressBar = document.getElementById('progress');
+            const statusText = document.getElementById('status-text');
+            const petDisplay = document.getElementById('pet-display');
+            const log = document.getElementById('log');
+
+            const title = titleInput.value.trim();
+            const review = reviewInput.value.trim();
+
+            if (title === '' || review === '') {
+                alert('책 제목과 한 줄 평을 모두 입력해주세요!');
+                return;
+            }
+
+            // 포인트 증가
+            points += 20;
+            pointDisplay.innerText = points;
+
+            // 진행률 업데이트
+            let progress = (points / goal) * 100;
+            if (progress > 100) progress = 100;
+
+            progressBar.style.width = progress + '%';
+
+            if (!isHatched) {
+                statusText.innerText = `부화까지 ${100 - progress}% 남았어요!`;
+            } else {
+                statusText.innerText = '공룡이 무럭무럭 자라고 있어요!';
+            }
+
+            // 로그 추가
+            const newLog = document.createElement('div');
+            newLog.innerText = `📘 [${title}]을 읽고 20포인트를 얻었어요!`;
+            log.prepend(newLog);
+
+            // 부화 이펙트 (100점 도달 시 최초 1회만 실행)
+            if (points >= goal && !isHatched) {
+                isHatched = true; // 부화 상태로 변경
+                statusText.innerText = '축하합니다! 알이 부화했어요!';
+                petDisplay.classList.add('shake');
+
+                setTimeout(() => {
+                    petDisplay.innerText = '🦖'; // 공룡으로 진화
+                    petDisplay.classList.remove('shake');
+                    alert('축하합니다! 아기 공룡이 태어났어요! 🎉');
+                }, 1000);
+            } else if (!isHatched) {
+                // 부화 전이면 알 흔들기
+                petDisplay.classList.add('shake');
+                setTimeout(() => {
+                    petDisplay.classList.remove('shake');
+                }, 500);
+            } else {
+                // 이미 부화한 경우: 공룡이 점프하거나 기뻐하는 애니메이션 등을 추가 가능
+                // 현 상태에서는 간단히 흔들기 효과 유지 혹은 제거
+                petDisplay.classList.add('shake');
+                setTimeout(() => {
+                    petDisplay.classList.remove('shake');
+                }, 500);
+            }
+
+            // 입력창 초기화
+            titleInput.value = '';
+            reviewInput.value = '';
+        }
+    </script>
+</body>
+
+</html>

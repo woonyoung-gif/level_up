@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개념 구조도 - 독서 전략 워크시트</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .house-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        /* Roof */
+        .roof {
+            width: 0;
+            height: 0;
+            border-left: 300px solid transparent;
+            border-right: 300px solid transparent;
+            border-bottom: 150px solid #ff9a9e;
+            /* Pink Roof */
+            position: relative;
+            margin-bottom: 0;
+        }
+
+        .roof-input {
+            position: absolute;
+            top: 70px;
+            left: -200px;
+            width: 400px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        /* Pillars Container */
+        .columns-container {
+            display: flex;
+            justify-content: space-between;
+            width: 560px;
+            /* Slightly less than roof width */
+            gap: 10px;
+        }
+
+        .column {
+            flex: 1;
+            background: #a1c4fd;
+            /* Blue Pillar */
+            padding: 15px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-radius: 4px;
+        }
+
+        .column h4 {
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .column textarea {
+            flex: 1;
+            border: none;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Foundation */
+        .foundation {
+            width: 600px;
+            height: 100px;
+            background: #84fab0;
+            /* Green Foundation */
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .foundation textarea {
+            height: 70%;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🏠 개념 구조도</h1>
+    </header>
+
+    <div class="container">
+        <div class="page-header-actions">
+            <a href="index.html" class="back-link">← 메뉴로 돌아가기</a>
+            <button class="print-btn" onclick="window.print()">📥 결과 출력</button>
+        </div>
+
+        <section class="workspace">
+            <h2 style="display:none;">개념 구조도</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">글의 주제(지붕)를 받치는 근거(기둥)와 결론(바닥)을 정리해보세요.</p>
+
+            <div class="house-container">
+                <!-- Roof: Main Idea -->
+                <div class="roof">
+                    <textarea class="roof-input" placeholder="[주제] 이 글의 가장 핵심적인 생각은 무엇인가요?"></textarea>
+                </div>
+
+                <!-- Pillars: Supporting Details -->
+                <div class="columns-container">
+                    <div class="column">
+                        <h4>근거 / 세부내용 1</h4>
+                        <textarea placeholder="주제를 뒷받침하는 첫 번째 내용을 적어보세요."></textarea>
+                    </div>
+                    <div class="column">
+                        <h4>근거 / 세부내용 2</h4>
+                        <textarea placeholder="주제를 뒷받침하는 두 번째 내용을 적어보세요."></textarea>
+                    </div>
+                    <div class="column">
+                        <h4>근거 / 세부내용 3</h4>
+                        <textarea placeholder="주제를 뒷받침하는 세 번째 내용을 적어보세요."></textarea>
+                    </div>
+                </div>
+
+                <!-- Foundation: Conclusion -->
+                <div class="foundation">
+                    <textarea placeholder="[결론] 전체 내용을 종합하여 마무리하는 문장을 써보세요."></textarea>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 독서 교육 지원 시스템</p>
+    </footer>
+
+    <script src="submission.js"></script>
+</body>
+
+</html>

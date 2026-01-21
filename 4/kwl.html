@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KWL - 독서 전략 워크시트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🤔 KWL</h1>
+    </header>
+
+    <div class="container">
+        <div class="page-header-actions">
+            <a href="index.html" class="back-link">← 메뉴로 돌아가기</a>
+            <button class="print-btn" onclick="window.print()">📥 결과 출력 / PDF 저장</button>
+        </div>
+
+        <section class="workspace">
+            <h2>KWL</h2> <!-- Hidden for print/semantic but visual header uses main Header -->
+            <p style="margin-bottom: 2rem; color: #666;">책을 읽기 전에 알고 있는 것, 알고 싶은 것, 그리고 읽고 나서 배운 것을 정리해보세요.</p>
+
+            <div class="kwl-grid">
+                <div class="kwl-column">
+                    <h3>Know (이미 아는 것)</h3>
+                    <textarea style="height: 400px;" placeholder="이 주제에 대해 이미 알고 있는 내용은 무엇인가요?"></textarea>
+                </div>
+                <div class="kwl-column">
+                    <h3>Want (알고 싶은 것)</h3>
+                    <textarea style="height: 400px;" placeholder="이 책을 통해 무엇이 궁금한가요?"></textarea>
+                </div>
+                <div class="kwl-column">
+                    <h3>Learned (새로 배운 것)</h3>
+                    <textarea style="height: 400px;" placeholder="책을 읽고 나서 무엇을 새롭게 알게 되었나요?"></textarea>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 독서 교육 지원 시스템</p>
+    </footer>
+
+    <a href="../1/index.html" class="back-home-btn">🏠 시작으로 돌아가기</a>
+    <script src="submission.js"></script>
+</body>
+
+</html>

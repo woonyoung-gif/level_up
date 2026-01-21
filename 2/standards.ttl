@@ -1,0 +1,270 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix edu: <http://example.org/edu/standard/> .
+
+#################################################################
+# 국어 성취기준
+#################################################################
+edu:6국06-03 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국06-03" ;
+    dc:description "적합한 양식과 수용자의 반응을 고려하여 복합양식 매체 자료를 제작하고 공유한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123456> .
+
+edu:6국06-04 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국06-04" ;
+    dc:description "자신의 매체 이용 양상에 대해 성찰한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123457> .
+
+edu:6국05-03 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국05-03" ;
+    dc:description "소설이나 극을 읽고 인물, 사건, 배경을 파악한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123458> .
+
+edu:6국05-04 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국05-04" ;
+    dc:description "인상적인 부분을 중심으로 작품에 대한 의견을 나눈다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123459> .
+
+edu:6국04-05 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국04-05" ;
+    dc:description "글과 담화에 쓰인 시간 표현을 이해하고 상황에 맞게 표현한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123460> .
+
+edu:6국04-06 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국04-06" ;
+    dc:description "단어 및 문장, 띄어쓰기를 바르게 고치는 태도" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123461> .
+
+edu:6국03-03 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국03-03" ;
+    dc:description "체험한 일에 대한 감상을 나타내는 글을 쓴다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123462> .
+
+edu:6국03-04 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국03-04" ;
+    dc:description "독자와 매체를 고려하여 글을 쓰고 표현한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123463> .
+
+edu:6국02-03 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국02-03" ;
+    dc:description "읽은 글 내용을 평가한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123464> .
+
+edu:6국02-04 rdf:type edu:LearningStandard ;
+    dc:subject "국어" ;
+    dc:identifier "6국02-04" ;
+    dc:description "다양한 관점의 글을 읽고 문제 해결에 활용한다." ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=123465> .
+
+#################################################################
+# 수학 성취기준
+#################################################################
+edu:4수01-05 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수01-05" ;
+    dc:description "나눗셈 의미 이해 및 곱셈/나눗셈 관계" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345678> .
+
+edu:4수01-06 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수01-06" ;
+    dc:description "한 자리 나눗셈 계산 원리 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345679> .
+
+edu:4수01-07 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수01-07" ;
+    dc:description "두 자리 나눗셈 계산 원리 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345680> .
+
+edu:4수01-13 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수01-13" ;
+    dc:description "소수 자릿값의 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345681> .
+
+edu:4수01-14 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수01-14" ;
+    dc:description "소수의 크기 비교" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345682> .
+
+edu:4수03-01 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수03-01" ;
+    dc:description "직선, 선분, 반직선 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345683> .
+
+edu:4수03-02 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수03-02" ;
+    dc:description "직각, 예각, 둔각 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345684> .
+
+edu:4수03-03 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수03-03" ;
+    dc:description "수직, 평행 관계 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345685> .
+
+edu:4수03-24 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수03-24" ;
+    dc:description "각도 측정" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345686> .
+
+edu:4수03-25 rdf:type edu:LearningStandard ;
+    dc:subject "수학" ;
+    dc:identifier "4수03-25" ;
+    dc:description "삼각형, 사각형 내각합 추론" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/345687> .
+
+#################################################################
+# 영어 성취기준
+#################################################################
+edu:4영01-01 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영01-01" ;
+    dc:description "알파벳 소리 식별" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456789> .
+
+edu:4영01-02 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영01-02" ;
+    dc:description "알파벳 대소문자 구별" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456790> .
+
+edu:4영02-01 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영02-01" ;
+    dc:description "단어, 어구, 문장을 강세, 리듬, 억양에 맞게 따라 말한다" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456791> .
+
+edu:4영02-02 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영02-02" ;
+    dc:description "알파벳 대소문자를 구별하여 쓴다" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456792> .
+
+edu:4영02-03 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영02-03" ;
+    dc:description "소리와 철자의 관계를 바탕으로 단어 쓰기" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456793> .
+
+edu:4영02-04 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영02-04" ;
+    dc:description "그림 보고 문장 표현" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456794> .
+
+edu:4영02-05 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "4영02-05" ;
+    dc:description "자신, 주변 사람·사물 소개 문장 말/쓰기" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456795> .
+
+edu:6영02-06 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "6영02-06" ;
+    dc:description "감정, 경험 표현" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456796> .
+
+edu:6영02-07 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "6영02-07" ;
+    dc:description "담화 정보 묻고 답하기" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456797> .
+
+edu:6영02-08 rdf:type edu:LearningStandard ;
+    dc:subject "영어" ;
+    dc:identifier "6영02-08" ;
+    dc:description "목적 맞는 글쓰기" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=456798> .
+
+#################################################################
+# 사회 성취기준
+#################################################################
+edu:6사09-01 rdf:type edu:LearningStandard ;
+    dc:subject "사회" ;
+    dc:identifier "6사09-01" ;
+    dc:description "세계 표현 공간 자료의 특징 이해" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=567890> .
+
+edu:6사09-02 rdf:type edu:LearningStandard ;
+    dc:subject "사회" ;
+    dc:identifier "6사09-02" ;
+    dc:description "세계 주요 대륙·대양, 우리나라 위치 이해" ;
+    edu:relatedResource <https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=567891> .
+
+#################################################################
+# 과학 성취기준
+#################################################################
+edu:4과05-01 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "4과05-01" ;
+    dc:description "여러 가지 물질 성질 비교 및 분류" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678901> .
+
+edu:4과05-02 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "4과05-02" ;
+    dc:description "고체, 액체, 기체 성질 관찰 및 비교" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678902> .
+
+edu:4과05-03 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "4과05-03" ;
+    dc:description "물질 성질 활용 설계 및 발표" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678903> .
+
+edu:4과03-01 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "4과03-01" ;
+    dc:description "여러 가지 식물 관찰 및 분류" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678904> .
+
+edu:4과03-02 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "4과03-02" ;
+    dc:description "환경에 따른 식물 생활 방식 설명" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678905> .
+
+edu:4과03-03 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "4과03-03" ;
+    dc:description "식물 특징 활용 설계 및 협력적 소통" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678906> .
+
+edu:6과01-01 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "6과01-01" ;
+    dc:description "지층 특징 이해 및 모형 표현" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678907> .
+
+edu:6과01-02 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "6과01-02" ;
+    dc:description "지층 퇴적암 이해 및 분류" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678908> .
+
+edu:6과01-03 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "6과01-03" ;
+    dc:description "화석 생성 과정 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678909> .
+
+edu:6과02-01 rdf:type edu:LearningStandard ;
+    dc:subject "과학" ;
+    dc:identifier "6과02-01" ;
+    dc:description "빛의 성질 이해" ;
+    edu:relatedResource <https://www.yes24.com/Product/Goods/678910> .

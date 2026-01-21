@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>우리 학교 바른 생활 지킴이</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 귀여운 손글씨 폰트 -->
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #ffeaa7;
+      --board-color: #2d3436;
+      --board-border: #b2bec3;
+      --accent-green: #00b894;
+      --accent-red: #ff7675;
+      --text-white: #fff;
+      --card-bg: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, #ffeaa7 0%, #fab1a0 100%);
+      font-family: 'Jua', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* 배경 장식 (학교 물건들) */
+    .bg-deco {
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.15;
+      z-index: 0;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(10deg);
+      }
+    }
+
+    /* === 헤더 === */
+    header {
+      z-index: 10;
+      width: 100%;
+      max-width: 600px;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .score-box {
+      font-size: 24px;
+      color: #d63031;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    .timer-box {
+      font-size: 24px;
+      color: #0984e3;
+      text-shadow: 1px 1px 0 #fff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* 타이머 바 */
+    .timer-bar-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .timer-bar-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #00b894, #00cec9);
+      transition: width 0.1s linear;
+    }
+
+    /* === 메인 게임 영역 === */
+    #game-container {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+    }
+
+    /* 문제 카드 (칠판 느낌) */
+    .question-card {
+      width: 100%;
+      background: var(--board-color);
+      border: 8px solid var(--board-border);
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+
+    .question-icon {
+      font-size: 80px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .question-text {
+      color: #fff;
+      font-family: 'Gaegu', cursive;
+      font-size: 32px;
+      line-height: 1.4;
+    }
+
+    /* 분필 가루 효과 */
+    .question-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.1'/%3E%3C/svg%3E");
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* === 버튼 영역 === */
+    .btn-container {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .answer-btn {
+      flex: 1;
+      height: 120px;
+      border: none;
+      border-radius: 20px;
+      font-family: 'Jua', sans-serif;
+      font-size: 60px;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .answer-btn span {
+      font-size: 20px;
+      margin-top: 5px;
+    }
+
+    .btn-o {
+      background: #00b894;
+      color: #fff;
+      border: 4px solid #55efc4;
+    }
+
+    .btn-x {
+      background: #ff7675;
+      color: #fff;
+      border: 4px solid #fab1a0;
+    }
+
+    .btn-o:active,
+    .btn-x:active {
+      transform: translateY(4px);
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* 피드백 효과 (정답/오답) */
+    .feedback {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      font-size: 150px;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 20;
+      text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .feedback.correct {
+      color: #00b894;
+      animation: popUp 0.5s forwards;
+    }
+
+    .feedback.wrong {
+      color: #d63031;
+      animation: popUp 0.5s forwards;
+    }
+
+    @keyframes popUp {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* === 오버레이 (시작/종료) === */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .modal {
+      background: #fff;
+      padding: 40px;
+      border-radius: 30px;
+      max-width: 90%;
+      width: 400px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: bounceIn 0.5s;
+      border: 5px solid #fdcb6e;
+    }
+
+    .modal h2 {
+      font-size: 32px;
+      color: #e17055;
+      margin: 0 0 20px;
+    }
+
+    .modal p {
+      font-size: 18px;
+      color: #636e72;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .start-btn {
+      background: linear-gradient(to bottom, #0984e3, #74b9ff);
+      color: #fff;
+      font-size: 24px;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Jua', sans-serif;
+      box-shadow: 0 5px 15px rgba(9, 132, 227, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .start-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .combo-text {
+      position: absolute;
+      top: 110px;
+      right: 20px;
+      font-size: 20px;
+      color: #e84393;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .combo-text.show {
+      opacity: 1;
+      animation: bounce 0.5s infinite;
+    }
+
+    @keyframes bounceIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 배경 장식 아이콘 -->
+  <div class="bg-deco" style="top: 10%; left: 5%;">🏫</div>
+  <div class="bg-deco" style="top: 20%; right: 10%; animation-delay: 1s;">✏️</div>
+  <div class="bg-deco" style="top: 60%; left: 15%; animation-delay: 2s;">🎒</div>
+  <div class="bg-deco" style="bottom: 10%; right: 5%; animation-delay: 3s;">⚽</div>
+
+  <!-- 타이머 바 -->
+  <div class="timer-bar-bg">
+    <div class="timer-bar-fill" id="timer-bar"></div>
+  </div>
+
+  <a href="playzone.html"
+    style="position: fixed; top: 20px; left: 20px; z-index: 9999; padding: 10px 20px; background: #E52521; color: white; text-decoration: none; border-radius: 25px; font-family: 'Jua', sans-serif; font-size: 1rem; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s;"
+    onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🔙 뒤로 돌아가기</a>
+  <header>
+    <div class="timer-box">⏰ <span id="time-left">60</span>초</div>
+    <div class="score-box" style="margin-left: 20px;">⭐ 점수: <span id="score">0</span></div>
+  </header>
+
+  <div class="combo-text" id="combo-display">🔥 5 콤보!</div>
+
+  <div id="game-container">
+    <div class="question-card" id="card">
+      <span class="question-icon" id="q-icon">🤔</span>
+      <div class="question-text" id="q-text">준비됐나요?</div>
+    </div>
+
+    <div class="btn-container">
+      <button class="answer-btn btn-o" onclick="checkAnswer(true)">
+        O
+        <span>좋아요!</span>
+      </button>
+      <button class="answer-btn btn-x" onclick="checkAnswer(false)">
+        X
+        <span>안돼요!</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="feedback-effect" class="feedback"></div>
+
+  <!-- 시작 화면 -->
+  <div id="start-screen" class="overlay">
+    <div class="modal">
+      <h2>🏫 학교 생활 퀴즈</h2>
+      <p>
+        학교에서 지켜야 할 <b>바른 행동(O)</b>과<br>
+        하면 안 되는 <b>나쁜 행동(X)</b>을<br>
+        구분해주세요!
+      </p>
+      <button class="start-btn" onclick="startGame()">등교하기 (시작)</button>
+    </div>
+  </div>
+
+  <!-- 종료 화면 -->
+  <div id="end-screen" class="overlay hidden">
+    <div class="modal">
+      <h2>🔔 수업 끝!</h2>
+      <p id="result-msg">오늘의 점수는?</p>
+      <button class="start-btn" onclick="startGame()">다시 등교하기</button>
+    </div>
+  </div>
+
+  <script>
+    // === 습관 데이터 (True=좋은습관, False=나쁜습관) ===
+    const HABITS = [
+      { text: "선생님을 만나면\n배꼽 인사하기", isGood: true, icon: "🙇" },
+      { text: "복도에서\n우당탕탕 뛰기", isGood: false, icon: "🏃" },
+      { text: "친구가 이야기할 때\n귀 기울여 듣기", isGood: true, icon: "👂" },
+      { text: "수업 시간에\n돌아다니기", isGood: false, icon: "🤪" },
+      { text: "쓰레기는\n쓰레기통에 버리기", isGood: true, icon: "🗑️" },
+      { text: "책상에 펜으로\n낙서하기", isGood: false, icon: "🖍️" },
+      { text: "준비물을\n미리미리 챙기기", isGood: true, icon: "🎒" },
+      { text: "친규를 별명으로\n놀리기", isGood: false, icon: "😝" },
+      { text: "급식 시간에\n차례차례 줄 서기", isGood: true, icon: "🍛" },
+      { text: "계단에서\n장난치며 밀기", isGood: false, icon: "😱" },
+      { text: "도서관에서는\n조용히 책 읽기", isGood: true, icon: "📖" },
+      { text: "화장실 문\n발로 차기", isGood: false, icon: "🚪" },
+      { text: "친구가 넘어지면\n일으켜 주기", isGood: true, icon: "🤝" },
+      { text: "칠판 지우개로\n장난치기", isGood: false, icon: "🌫️" },
+      { text: "아침에 지각하지\n않고 오기", isGood: true, icon: "⏰" },
+      { text: "짝꿍 물건\n허락 없이 쓰기", isGood: false, icon: "✏️" },
+      { text: "고운 말\n바른 말 쓰기", isGood: true, icon: "💬" },
+      { text: "교실에서\n공 차기", isGood: false, icon: "⚽" }
+    ];
+
+    // === 게임 변수 ===
+    let score = 0;
+    let timeLeft = 60;
+    let timerId = null;
+    let currentHabit = null;
+    let combo = 0;
+    let isPlaying = false;
+
+    // DOM Elements
+    const qText = document.getElementById('q-text');
+    const qIcon = document.getElementById('q-icon');
+    const scoreEl = document.getElementById('score');
+    const timeEl = document.getElementById('time-left');
+    const timerBar = document.getElementById('timer-bar');
+    const feedbackEl = document.getElementById('feedback-effect');
+    const comboEl = document.getElementById('combo-display');
+    const startScreen = document.getElementById('start-screen');
+    const endScreen = document.getElementById('end-screen');
+    const resultMsg = document.getElementById('result-msg');
+    const cardEl = document.getElementById('card');
+
+    // === 게임 로직 ===
+
+    function startGame() {
+      score = 0;
+      timeLeft = 60;
+      combo = 0;
+      isPlaying = true;
+
+      scoreEl.innerText = 0;
+      timeEl.innerText = 60;
+      timerBar.style.width = '100%';
+      comboEl.classList.remove('show');
+
+      startScreen.classList.add('hidden');
+      endScreen.classList.add('hidden');
+
+      nextCard();
+
+      if (timerId) clearInterval(timerId);
+      timerId = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+      timeLeft--;
+      timeEl.innerText = timeLeft;
+      timerBar.style.width = `${(timeLeft / 60) * 100}%`;
+
+      if (timeLeft <= 10) {
+        timerBar.style.background = 'linear-gradient(90deg, #ff7675, #d63031)';
+      } else {
+        timerBar.style.background = 'linear-gradient(90deg, #00b894, #00cec9)';
+      }
+
+      if (timeLeft <= 0) {
+        gameOver();
+      }
+    }
+
+    function nextCard() {
+      // 랜덤 문제 선택
+      currentHabit = HABITS[Math.floor(Math.random() * HABITS.length)];
+
+      // 카드 애니메이션 리셋
+      cardEl.style.transform = "scale(0.95)";
+      setTimeout(() => cardEl.style.transform = "scale(1)", 100);
+
+      qText.innerHTML = currentHabit.text.replace(/\n/g, '<br>');
+      qIcon.innerText = currentHabit.icon;
+    }
+
+    function checkAnswer(userChoice) {
+      if (!isPlaying) return;
+
+      if (userChoice === currentHabit.isGood) {
+        // 정답
+        processResult(true);
+      } else {
+        // 오답
+        processResult(false);
+      }
+      nextCard();
+    }
+
+    function processResult(isCorrect) {
+      // 피드백 표시
+      feedbackEl.className = 'feedback'; // 리셋
+      void feedbackEl.offsetWidth; // 리플로우 강제 (애니메이션 재실행용)
+
+      if (isCorrect) {
+        feedbackEl.innerText = "⭕";
+        feedbackEl.classList.add('correct');
+
+        combo++;
+        // 콤보 보너스 점수
+        let bonus = Math.floor(combo / 3) * 5;
+        score += (10 + bonus);
+
+        if (combo >= 3) {
+          comboEl.innerText = `🔥 ${combo} 콤보!`;
+          comboEl.classList.add('show');
+        }
+      } else {
+        feedbackEl.innerText = "❌";
+        feedbackEl.classList.add('wrong');
+
+        combo = 0;
+        comboEl.classList.remove('show');
+        // 시간 페널티
+        timeLeft = Math.max(0, timeLeft - 3);
+        timeEl.innerText = timeLeft;
+
+        // 화면 흔들림 효과
+        document.body.style.transform = "translateX(-5px)";
+        setTimeout(() => document.body.style.transform = "translateX(5px)", 50);
+        setTimeout(() => document.body.style.transform = "translateX(0)", 100);
+      }
+      scoreEl.innerText = score;
+    }
+
+    function gameOver() {
+      isPlaying = false;
+      clearInterval(timerId);
+
+      let rank = "병아리 학생 🐣";
+      if (score >= 400) rank = "학교의 전설 👑";
+      else if (score >= 250) rank = "모범생 👨‍🎓";
+      else if (score >= 100) rank = "성실한 학생 😉";
+
+      resultMsg.innerHTML = `
+      최종 점수: <b style="color:#e17055; font-size:28px;">${score}점</b><br>
+      나의 등급: <b>${rank}</b>
+    `;
+      endScreen.classList.remove('hidden');
+    }
+
+    // 키보드 지원 (왼쪽=O, 오른쪽=X)
+    window.addEventListener('keydown', (e) => {
+      if (!isPlaying) return;
+      if (e.key === 'ArrowLeft') checkAnswer(true);
+      if (e.key === 'ArrowRight') checkAnswer(false);
+    });
+
+  </script>
+</body>
+
+</html>

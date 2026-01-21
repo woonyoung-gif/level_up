@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초등 LEVEL UP+ 탐험대</title>
+    <meta name="description" content="초등학생과 교사를 위한 교수·학습자료 홈페이지">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Jua&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="game-world">
+        <!-- Floating Header -->
+        <header>
+            <h1 class="game-title" data-text="초등 LEVEL UP+ 탐험대">초등 LEVEL UP+ 탐험대</h1>
+        </header>
+
+        <main id="map-container">
+
+            <!-- 2. Top Center: Earth Block Island (성취기준 도서검색맵) -->
+            <a href="./2/index2.html" class="island-title location-top glow-text" data-id="island2">
+                <span>성취기준 <br>도서검색맵</span>
+            </a>
+
+            <!-- 4. Left: Giant Book (독서력 향상 활동지) -->
+            <a href="./4/index.html" class="island-title location-left glow-text" data-id="island4">
+                <span>독서력 향상 <br>활동지</span>
+            </a>
+
+            <!-- 3. Right: Blackboard (바로쓰는 독서학습지도안) -->
+            <a href="./3/index.html" class="island-title location-right glow-text" data-id="island3">
+                <span>바로쓰는 <br>독서학습지도안</span>
+            </a>
+
+            <!-- 1. Bottom Center: Pipes & Grass (수업 플레이존) -->
+            <a href="./1/playzone.html" class="island-title location-bottom glow-text" data-id="island1">
+                <span>수업 <br>플레이존</span>
+            </a>
+
+            <!-- Central Banner: Dino Egg -->
+            <div id="dino-egg-container" class="center-element">
+                <div id="dino-egg" class="interactive-element" role="button" aria-label="공룡 알">
+                    <div class="egg-shape">
+                        <div class="spot spot-1"></div>
+                        <div class="spot spot-2"></div>
+                        <div class="spot spot-3"></div>
+                    </div>
+                </div>
+                <div class="glow-effect"></div>
+            </div>
+
+        </main>
+
+        <!-- Custom Cursor Element (Hidden initially) -->
+        <div id="dino-cursor" class="custom-cursor hidden">
+            <span class="dino-emoji">🦕</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

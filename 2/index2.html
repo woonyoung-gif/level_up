@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이윤정의 성취기준별 도서 추천</title>
+    <meta name="description" content="이윤정 선생님의 과목별 성취기준에 맞는 도서자료 추천 플랫폼">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Dongle:wght@300;400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="margin: 0;">
+
+
+
+
+
+    <div class="background-gradient"></div>
+
+    <header class="header">
+        <div class="container">
+            <a href="../index.html" class="back-btn-mario" style="
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                background: #E52521;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 25px;
+                font-family: 'Jua', sans-serif;
+                font-size: 1rem;
+                font-weight: bold;
+                border: 2px solid white;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+                transition: transform 0.2s;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🏠 시작으로
+                돌아가기</a>
+            <h1 class="main-title">
+                <span class="icon">🗺️</span>
+                성취기준 도서 탐험 맵
+            </h1>
+            <p class="subtitle">모험을 떠나볼까요? 성취기준에 맞는 보물 같은 책을 찾아보세요!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="search-section">
+            <div class="search-card">
+                <h2 class="section-title">도서 검색</h2>
+
+                <div class="search-controls">
+                    <div class="filter-group">
+                        <label for="subject-filter">과목</label>
+                        <select id="subject-filter" class="select-input">
+                            <option value="">전체 과목</option>
+                            <option value="국어">국어</option>
+                            <option value="수학">수학</option>
+                            <option value="영어">영어</option>
+                            <option value="사회">사회</option>
+                            <option value="과학">과학</option>
+                        </select>
+                    </div>
+
+                    <div class="search-input-group">
+                        <input type="text" id="search-input" class="search-input"
+                            placeholder="성취기준 코드 또는 내용을 검색하세요 (예: 6국06-03, 나눗셈)">
+                        <button id="search-btn" class="search-btn">
+                            <span class="search-icon">🔍</span>
+                            검색
+                        </button>
+                    </div>
+                </div>
+
+                <div id="stats" class="stats-bar"></div>
+            </div>
+        </section>
+
+        <section id="results-section" class="results-section">
+            <div id="results-container" class="results-grid"></div>
+        </section>
+
+        <section class="standards-section">
+            <div class="standards-card">
+                <h2 class="section-title">
+                    <span class="title-icon">✨</span>
+                    성취기준 선택하기
+                    <span class="title-icon">✨</span>
+                </h2>
+                <p class="section-subtitle">원하는 성취기준을 클릭해서 선택해보세요!</p>
+                <div id="standards-buttons" class="standards-buttons-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 교육 성취기준 도서 추천 시스템. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

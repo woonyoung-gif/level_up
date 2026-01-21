@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비교와 대조 워크시트 - 독서 전략</title>
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .venn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 50px 0;
+            min-height: 600px;
+        }
+
+        .circle-wrapper {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+        }
+
+        .circle-wrapper:first-child {
+            margin-right: -100px;
+        }
+
+        .circle-wrapper:last-child {
+            margin-left: -100px;
+        }
+
+        .circle {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            border: 3px solid;
+            background: rgba(255, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 60px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: width 0.3s, height 0.3s, border-radius 0.3s;
+            /* We will keep it circular or oval? User said "Resize according to text". 
+               Growing height is easier if we allow oval. */
+        }
+
+        .left-circle {
+            border-color: #ff9a9e;
+            background: rgba(255, 154, 158, 0.05);
+        }
+
+        .right-circle {
+            border-color: #4facfe;
+            background: rgba(79, 172, 254, 0.05);
+        }
+
+        .venn-input {
+            width: 80%;
+            height: 70%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            resize: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            overflow: hidden;
+            /* Hide scrollbar, auto-expand */
+        }
+
+        .venn-input:focus {
+            outline: none;
+        }
+
+        /* The Center Overlap Textarea - positioned absolute relative to container */
+        .center-overlap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .center-overlap textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            text-align: center;
+            font-weight: bold;
+            color: #555;
+            resize: both;
+            /* Allow manual resize if auto fails? No, requirement says auto. */
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>⚖️ 비교와 대조</h1>
+    </header>
+
+    <div class="container">
+        <div class="page-header-actions">
+            <a href="index.html" class="back-link">← 메뉴로 돌아가기</a>
+            <button class="print-btn" onclick="window.print()">📥 결과 출력</button>
+        </div>
+
+        <section class="workspace">
+            <h2 style="display:none;">벤 다이어그램</h2>
+
+            <div class="venn-container">
+                <div class="circle-wrapper">
+                    <div class="circle left-circle">
+                        <input type="text" placeholder="대상 A"
+                            style="text-align:center; font-weight:bold; margin-bottom:10px; background:none; border:none; font-size:1.2rem;">
+                        <textarea class="venn-input" placeholder="A만의 특징"></textarea>
+                    </div>
+                </div>
+
+                <div class="circle-wrapper">
+                    <div class="circle right-circle">
+                        <input type="text" placeholder="대상 B"
+                            style="text-align:center; font-weight:bold; margin-bottom:10px; background:none; border:none; font-size:1.2rem;">
+                        <textarea class="venn-input" placeholder="B만의 특징"></textarea>
+                    </div>
+                </div>
+
+                <div class="center-overlap">
+                    <textarea placeholder="공통점" id="centerInput"></textarea>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 독서 교육 지원 시스템</p>
+    </footer>
+
+    <script src="submission.js"></script>
+    <script>
+        // Auto-Resize Logic
+        const inputs = document.querySelectorAll('.venn-input');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                // Resize Circle based on scrollHeight
+                // Base size 400px.
+                // If content exceeds, grow circle.
+                // We just increase width/height of parent .circle
+
+                // Reset height to check scrollHeight accurately
+                this.style.height = 'auto';
+                const requiredHeight = this.scrollHeight;
+                this.style.height = '70%'; // Restore 
+
+                const circle = this.parentElement;
+
+                // If required content height > (circle height * 0.7), grow circle
+                const currentCircleHeight = circle.offsetHeight;
+
+                if (requiredHeight > (currentCircleHeight * 0.7)) {
+                    // Grow
+                    const newSize = Math.min(600, currentCircleHeight + 20); // Cap at 600
+                    circle.style.width = newSize + 'px';
+                    circle.style.height = newSize + 'px';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
