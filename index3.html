@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 독서 수업 설계 컨설턴트</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+
+
+
+    <div class="chat-container">
+        <header>
+            <a href="./index.html" class="back-btn-mario" style="
+                background: #E52521;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 25px;
+                font-family: 'Jua', sans-serif;
+                font-size: 1rem;
+                border: 2px solid white;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+                margin-right: 15px;
+                transition: transform 0.2s;
+                display: inline-block;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🏠 시작으로
+                돌아가기</a>
+            <div class="avatar" style="background: var(--mario-green, #43B047);">👩‍🏫</div>
+            <div class="header-info">
+                <h1>바로쓰는 독서 학습지도안 (교무실)</h1>
+                <p>무엇을 도와드릴까요, 선생님? 학년과 주제를 말씀해주세요.</p>
+            </div>
+        </header>
+
+        <div id="chat-history">
+            <!-- Messages will appear here -->
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="메시지를 입력하세요..." autofocus>
+            <button id="send-btn">전송</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
