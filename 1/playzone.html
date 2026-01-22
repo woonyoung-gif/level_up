@@ -142,6 +142,15 @@
             pointer-events: none;
             z-index: 10;
         }
+
+ .game-card .game-thumb {
+            aspect-ratio: 1 / 1;  /* 정사각형 비율 고정 */
+            flex-shrink: 0;       /* 찌그러짐 절대 금지 */
+            height: 150px;        /* 높이 고정 */
+            width: auto;          /* 너비는 알아서 */
+            align-self: center;   /* 가운데 정렬 */
+        }
+  
     </style>
 </head>
 
@@ -191,6 +200,15 @@
             </div>
         </a>
 
+
+  <a href="chemistry/index.html" class="game-card">
+            <div class="game-thumb">🧪</div>
+            <div class="game-info">
+                <h3>화학 게임</h3>
+                <p>원소 기호를 재미있게 배워봐요!</p>
+            </div>
+        </a>
+ 
         <a href="Egg_game.html" class="game-card">
             <div class="game-thumb">🐣</div>
             <div class="game-info">
@@ -221,3 +239,4 @@
 </body>
 
 </html>
+-

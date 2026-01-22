@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>말랑말랑 화학 퀴즈 탐험대</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>🧪 화학 퀴즈 탐험대 🌡️</h1>
+        
+        <div class="game-info">
+            <span id="level-display" class="badge">1급 도전 중!</span>
+            <span id="question-count" class="badge">1 / 20</span>
+        </div>
+
+        <!-- 귀여운 캐릭터 영역 -->
+        <div class="character">
+            <!-- 머리카락 추가 -->
+            <div class="hair-top"></div>
+            <div class="hair-back"></div>
+
+            <div class="face">
+                <!-- 안경 추가 -->
+                <div class="glasses">
+                    <div class="lens left"></div>
+                    <div class="bridge"></div>
+                    <div class="lens right"></div>
+                </div>
+
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+                <div class="blush left"></div>
+                <div class="blush right"></div>
+                <div class="mouth" id="character-mouth"></div>
+            </div>
+            <div class="body"></div>
+        </div>
+
+        <div id="quiz-box">
+            <p id="question">문제를 불러오는 중...</p>
+            <div class="options">
+                <button onclick="checkAnswer(0)" id="btn0">보기 1</button>
+                <button onclick="checkAnswer(1)" id="btn1">보기 2</button>
+                <button onclick="checkAnswer(2)" id="btn2">보기 3</button>
+            </div>
+        </div>
+
+        <div id="result" class="hidden">
+            <p id="message"></p>
+            <button onclick="nextQuestion()">다음 문제로!</button>
+        </div>
+
+        <div class="score-board">
+            점수: <span id="score">0</span> / 200
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

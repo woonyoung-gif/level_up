@@ -1,0 +1,175 @@
+body {
+    background-color: #f0f8ff;
+    font-family: 'Nanum Gothic', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 400px;
+    position: relative;
+}
+
+h1 { color: #ff6b6b; font-size: 24px; margin-bottom: 10px; }
+
+.game-info {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.badge {
+    background: #4ecdc4;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* 캐릭터 CSS */
+.character {
+    position: relative;
+    width: 100px;
+    height: 120px;
+    margin: 20px auto;
+}
+
+.hair-back {
+    width: 90px;
+    height: 90px;
+    background: #5d4037;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    z-index: 1;
+}
+
+.face {
+    width: 80px;
+    height: 80px;
+    background: #ffe0bd;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    margin: 0 auto;
+    border: 2px solid #555;
+}
+
+.hair-top {
+    width: 90px;
+    height: 40px;
+    background: #5d4037;
+    border-radius: 50px 50px 0 0;
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    z-index: 3;
+}
+
+/* 안경 스타일 */
+.glasses {
+    position: absolute;
+    top: 35px;
+    left: 5px;
+    width: 70px;
+    height: 20px;
+    z-index: 4;
+    transition: top 0.3s;
+}
+
+.lens {
+    width: 25px;
+    height: 25px;
+    border: 3px solid #333;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    position: absolute;
+}
+.lens.left { left: 0; }
+.lens.right { right: 0; }
+
+.bridge {
+    width: 15px;
+    height: 3px;
+    background: #333;
+    position: absolute;
+    top: 12px;
+    left: 27px;
+}
+
+.eye {
+    width: 8px;
+    height: 8px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 45px; /* 안경에 맞춰 눈 위치 조정 */
+}
+.eye.left { left: 20px; }
+.eye.right { right: 20px; }
+
+.blush {
+    width: 12px;
+    height: 6px;
+    background: #ffb6c1;
+    border-radius: 50%;
+    position: absolute;
+    top: 55px;
+}
+.blush.left { left: 10px; }
+.blush.right { right: 10px; }
+
+.mouth {
+    width: 20px;
+    height: 10px;
+    border-bottom: 3px solid #333;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 15px;
+    left: 30px;
+    transition: 0.3s;
+}
+
+.body {
+    width: 60px;
+    height: 40px;
+    background: #ff9f43; /* 옷 색깔 변경 */
+    border-radius: 20px 20px 0 0;
+    margin: -10px auto 0;
+    z-index: 1;
+    position: relative;
+    border: 2px solid #555;
+    border-bottom: none;
+}
+
+/* 버튼 스타일 */
+button {
+    background: #4ecdc4;
+    border: none;
+    padding: 12px 20px;
+    margin: 8px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    width: 80%;
+    transition: 0.2s;
+    font-size: 16px;
+}
+
+button:hover { background: #3cbdb1; transform: scale(1.02); }
+#question { font-size: 18px; font-weight: bold; margin-bottom: 20px; word-break: keep-all; }
+
+.hidden { display: none; }
+.score-board { margin-top: 20px; font-weight: bold; font-size: 18px; color: #555; }
